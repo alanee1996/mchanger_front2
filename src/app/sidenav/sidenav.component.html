@@ -1,0 +1,36 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar color="primary" style="background-color:#5015B8;"><i class="material-icons">
+        list_alt
+        </i> Action Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/dashboard']">Dashboard <i class="material-icons ml-auto text-warning">
+          dashboard
+          </i></a>
+      <a mat-list-item >{{ userInfo.username }}</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span><i class="material-icons align-middle">
+          attach_money
+          </i> mchanger</span>
+      <a mat-button color="primary" [routerLink]="['profile']" class="text-white align-center ml-auto">{{ userInfo.username }} <i class="material-icons align-center">
+          person
+          </i></a>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async" class="ml-auto">
+        <mat-icon *ngIf="(isHandset$ | async)" aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </mat-toolbar>
+      <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

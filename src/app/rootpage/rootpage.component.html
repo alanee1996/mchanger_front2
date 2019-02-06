@@ -1,0 +1,11 @@
+<app-sidenav [userInfo]="userProfile">
+  <div class="container-fluid">
+    <div class="mt-3">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</app-sidenav>
+
+<ngx-spinner size="large" bdColor="#dc3545">
+    <span class="text-white display-4">Loading</span>
+</ngx-spinner>

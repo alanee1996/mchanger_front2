@@ -1,18 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { AppRoutingModule, RoutingCollection } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DesignModuleModule } from './design-module/design-module.module';
+import { AuthService } from './Services/auth.service';
+import { ProfileImgDialogComponent } from './profile-img-dialog/profile-img-dialog.component';
+import { UserService } from './Services/user-service.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent,
+    RoutingCollection,
+    ProfileImgDialogComponent,
   ],
+  entryComponents: [ProfileImgDialogComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    DesignModuleModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    ZXingScannerModule.forRoot(),
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
