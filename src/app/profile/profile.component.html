@@ -1,6 +1,12 @@
 <section class="row mt-5 pl-5 pr-5 pt-3">
     <div class="col-12">
         <mat-card class="shadow">
+            <mat-toolbar class="mb-3">
+                <mat-toolbar-row>
+                    <span>User Profile</span>
+                    <mat-icon class="ml-auto" id="logout" matTooltip="Click to logout" (click)="logout()">exit_to_app</mat-icon>
+                </mat-toolbar-row>
+            </mat-toolbar>
             <mat-card-header class="d-flex flex-column">
                 <div class="d-flex justify-content-center">
                     <img src="{{ userInfo.profile_img }}" width="150" height="150" class="rounded-circle" (click)="dialogOpen()"/>

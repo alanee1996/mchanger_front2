@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material';
 import { ProfileImgDialogComponent } from '../profile-img-dialog/profile-img-dialog.component';
 import { ProfileUpdateModel } from '../Models/profileUpdateModel';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
   public profileForm: FormGroup;
   public updateModel: ProfileUpdateModel;
 
-  constructor(private auth: AuthService, private router: Router, public dialog: MatDialog) { }
+  constructor(private auth: AuthService, private router: Router, public dialog: MatDialog, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     if (this.auth.isLogin()) {
@@ -67,5 +68,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+      this.auth.logout();
+    }, 4000);
+
+  }
 }
 

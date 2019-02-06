@@ -20,20 +20,25 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      'username': new FormControl(
-        this.loginModel.username,
-        [
-          Validators.required
-        ]),
-      'password': new FormControl(
-        this.loginModel.password,
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(10),
-        ]),
-    });
+    if (this.auth.isLogin()) {
+      this.router.navigate(['/dashboard']);
+    }
+      this.loginForm = new FormGroup({
+        'username': new FormControl(
+          this.loginModel.username,
+          [
+            Validators.required
+          ]),
+        'password': new FormControl(
+          this.loginModel.password,
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(10),
+          ]),
+        'check': new FormControl(
+        )
+      });
   }
 
   login(event) {

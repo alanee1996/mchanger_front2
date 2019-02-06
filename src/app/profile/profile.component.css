@@ -1,3 +1,7 @@
 .card-font-lg{
   font-size: 18px;
 }
+
+#logout{
+  cursor: pointer;
+}
