@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
 import { Observable } from 'rxjs';
 import { GenericModel } from '../Models/genericModel';
+import { User } from '../Models/user';
 
 
 @Injectable({
@@ -23,6 +24,15 @@ export class UserService {
     console.log(headers);
     const res = this.http.post<GenericModel>(this.host + 'media/profile/upload', formData, {
       headers: this.auth.getSecureHeader()
+    });
+    return res;
+  }
+
+  public updateProfileInfo(model: User): Observable<User> {
+    const headers = this.auth.getSecureHeader();
+    headers.append('Content-Type', 'application/json');
+    const res = this.http.post<User>(this.host + 'user/admin/profile/update', model, {
+      headers: headers
     });
     return res;
   }

@@ -8,6 +8,7 @@ import { ProfileImgDialogComponent } from '../profile-img-dialog/profile-img-dia
 import { ProfileUpdateModel } from '../Models/profileUpdateModel';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UserService } from '../Services/user-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -24,7 +25,8 @@ export class ProfileComponent implements OnInit {
   public profileForm: FormGroup;
   public updateModel: ProfileUpdateModel;
 
-  constructor(private auth: AuthService, private router: Router, public dialog: MatDialog, private spinner: NgxSpinnerService) { }
+  constructor(private auth: AuthService, private router: Router, public dialog: MatDialog,
+    private spinner: NgxSpinnerService, private userServive: UserService) { }
 
   ngOnInit() {
     if (this.auth.isLogin()) {
@@ -75,6 +77,13 @@ export class ProfileComponent implements OnInit {
       this.auth.logout();
     }, 4000);
 
+  }
+
+  updateProfile(event) {
+    event.preventDefault();
+    this.userServive.updateProfileInfo(this.userInfo).subscribe(d => {
+      console.log(d);
+    });
   }
 }
 
