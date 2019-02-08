@@ -5,6 +5,9 @@ import { LoginComponent } from './login/login.component';
 import { RootpageComponent } from './rootpage/rootpage.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ProfileComponent } from './profile/profile.component';
+import { WithdrawalComponent } from './withdrawal/withdrawal.component';
+import { RoleComponent } from './role/role.component';
+import { RoleListComponent } from './role/roles.list.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,7 +16,16 @@ const routes: Routes = [
     path: 'dashboard',
     component: RootpageComponent,
     children: [
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'withdrawal', component: WithdrawalComponent },
+      {
+        path: 'roles', component: RoleComponent,
+        children: [
+          { path: '', component: RoleListComponent },
+          { path: 'list', component: RoleListComponent },
+          { path: '**', component: PageNotFoundComponent}
+        ]
+    }
     ]
   },
   { path: '**' , component: PageNotFoundComponent}
@@ -26,5 +38,6 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 export const RoutingCollection = [
-  PageNotFoundComponent, LoginComponent, RootpageComponent, SidenavComponent, ProfileComponent
+  PageNotFoundComponent, LoginComponent, RootpageComponent, SidenavComponent, ProfileComponent, WithdrawalComponent,
+  RoleComponent, RoleListComponent
 ];

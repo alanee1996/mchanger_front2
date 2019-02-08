@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../Models/user';
 import { AuthService } from '../Services/auth.service';
 import { Router } from '@angular/router';
-import { Validators, FormGroup } from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import { ProfileImgDialogComponent } from '../profile-img-dialog/profile-img-dialog.component';
 import { ProfileUpdateModel } from '../Models/profileUpdateModel';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   public updateModel: ProfileUpdateModel;
 
   constructor(private auth: AuthService, private router: Router, public dialog: MatDialog,
-    private spinner: NgxSpinnerService, private userServive: UserService) { }
+    private spinner: NgxSpinnerService, private userServive: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if (this.auth.isLogin()) {
@@ -43,6 +43,34 @@ export class ProfileComponent implements OnInit {
     } else {
         this.router.navigate(['/']);
     }
+
+    this.profileForm = new FormGroup({
+      'email': new FormControl(
+        this.userInfo.email,
+        [
+          Validators.required,
+          Validators.email,
+        ]
+      ),
+      'contact': new FormControl(
+        this.userInfo.phone,
+        [
+          Validators.required
+        ]
+      ),
+      'fname': new FormControl(
+        this.userInfo.fname,
+        [
+          Validators.required
+        ]
+      ),
+      'lname': new FormControl(
+        this.userInfo.lname,
+        [
+          Validators.required
+        ]
+      )
+    });
 
   }
 
@@ -62,9 +90,13 @@ export class ProfileComponent implements OnInit {
               // tslint:disable-next-line:max-line-length
         if (result.response.status === 'success' && result.response.fileResponse.getFileUrl !== undefined && result.response.fileResponse.getFileUrl !== null) {
           this.userInfo.profile_img = result.response.fileResponse.getFileUrl;
-          alert('Profile image uploaded successful');
+          this.snackBar.open('Profile image uploaded successful', 'Dismiss', {
+            duration: 2000,
+          });
         } else {
-          alert(result.response.message);
+          this.snackBar.open(result.response.message , 'Dismiss', {
+            duration: 2000,
+          });
         }
       }
     });
@@ -81,9 +113,16 @@ export class ProfileComponent implements OnInit {
 
   updateProfile(event) {
     event.preventDefault();
-    this.userServive.updateProfileInfo(this.userInfo).subscribe(d => {
-      console.log(d);
-    });
+    if (!this.profileForm.invalid) {
+      this.userServive.updateProfileInfo(this.userInfo).subscribe(d => {
+        if (d['status'] === 'success') {
+          this.userInfo = d['data'];
+        }
+        this.snackBar.open(d['message'] , 'Dismiss', {
+          duration: 2000,
+        });
+      });
+    }
   }
 }
 

@@ -10,7 +10,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import {MatDialogModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
   exports: [
     MatProgressBarModule,
+    MatDividerModule,
     LayoutModule,
     MatTooltipModule,
+    MatSnackBarModule,
     MatIconModule,
     MatCheckboxModule,
+    MatTabsModule,
     MatFormFieldModule,
     MatSidenavModule,
     MatInputModule,

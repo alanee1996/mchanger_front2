@@ -17,24 +17,28 @@
                 </div>
             </mat-card-header>
             <mat-card-content class="card-font-lg row p-4 pb-5">
-                <form method="post" (submit)="updateProfile($event)" >
+                <form [formGroup]="profileForm" method="post" (submit)="updateProfile($event)" >
                     <mat-form-field class="col-lg-12">
                         <input type="text" matInput value="{{ userInfo.username }}" placeholder="Username" [disabled]="true"/>
                     </mat-form-field>
                     <mat-form-field class="col-lg-12">
-                        <input type="text" matInput [(ngModel)]="userInfo.email" name="email" placeholder="Email"/>
-                    </mat-form-field>
+                        <input type="text" formControlName="email" matInput [(ngModel)]="userInfo.email" placeholder="Email"/>
+                        <mat-error *ngIf="profileForm.get('email').invalid">Please make sure the email address is in correct format and cannot be null</mat-error>
+                      </mat-form-field>
                     <mat-form-field class="col-lg-6 col-sm-12">
                         <input type="text" matInput [disabled]="true" value="{{ userInfo.rolename }}" placeholder="Role Name"/>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6 col-sm-12">
-                        <input [(ngModel)]="userInfo.phone" matInput name="contact" placeholder="Contact Number" type="text"/>
+                        <input [(ngModel)]="userInfo.phone" matInput formControlName="contact" placeholder="Contact Number" type="text"/>
+                        <mat-error *ngIf="profileForm.get('contact').invalid">Contact number cannot be null</mat-error>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6 col-sm-12">
-                        <input [(ngModel)]="userInfo.fname" matInput name="fname" placeholder="First Name" type="text"/>
+                        <input [(ngModel)]="userInfo.fname" matInput formControlName="fname" placeholder="First Name" type="text"/>
+                        <mat-error *ngIf="profileForm.get('fname').invalid">First name cannot be null</mat-error>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6 col-sm-12">
-                        <input [(ngModel)]="userInfo.lname" matInput name="lname" placeholder="Last Name" type="text"/>
+                        <input [(ngModel)]="userInfo.lname" matInput formControlName="lname" placeholder="Last Name" type="text"/>
+                        <mat-error *ngIf="profileForm.get('lname').invalid">Last name cannot be null</mat-error>
                     </mat-form-field>
                     <div class="col-12">
                         <button class="float-right" color="primary" mat-raised-button type="submit">

@@ -28,7 +28,9 @@
                                 <mat-error *ngIf="loginForm.get('password').invalid">Please make sure password have 8-10 characters and contain at least 1 special character and number</mat-error>
                                 <mat-hint align="end">Example password format: Test1@b</mat-hint>
                             </mat-form-field>
-                            <mat-checkbox formControlName="check" class="col-12" [(ngModel)]="loginModel.remember">Remember Me</mat-checkbox>
+                            <div class="mt-4 col-12">
+                              <mat-checkbox formControlName="check" [(ngModel)]="loginModel.remember">Remember Me</mat-checkbox>
+                            </div>
                             <div class="col-12 mt-2">
                                 <button class="float-right" color="primary" mat-raised-button type="submit">Login</button>
                             </div>

@@ -12,6 +12,8 @@ import { DesignModuleModule } from './design-module/design-module.module';
 import { AuthService } from './Services/auth.service';
 import { ProfileImgDialogComponent } from './profile-img-dialog/profile-img-dialog.component';
 import { UserService } from './Services/user-service.service';
+import { TransactionService } from './Services/transaction.service';
+import { RoleService } from './Services/role.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { UserService } from './Services/user-service.service';
     ZXingScannerModule.forRoot(),
     BrowserAnimationsModule,
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, TransactionService, RoleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
