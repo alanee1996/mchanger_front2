@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { WithdrawalComponent } from './withdrawal/withdrawal.component';
 import { RoleComponent } from './role/role.component';
 import { RoleListComponent } from './role/roles.list.component';
+import { RoleCRDComponent } from './role/role.crd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
         children: [
           { path: '', component: RoleListComponent },
           { path: 'list', component: RoleListComponent },
+          { path: 'detail/:action', component: RoleCRDComponent},
           { path: '**', component: PageNotFoundComponent}
         ]
     }
@@ -39,5 +41,5 @@ export class AppRoutingModule { }
 
 export const RoutingCollection = [
   PageNotFoundComponent, LoginComponent, RootpageComponent, SidenavComponent, ProfileComponent, WithdrawalComponent,
-  RoleComponent, RoleListComponent
+  RoleComponent, RoleListComponent, RoleCRDComponent
 ];

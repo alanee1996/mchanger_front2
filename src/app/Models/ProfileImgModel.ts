@@ -4,7 +4,7 @@ export class ProfileDialogModel {
 
   image: File;
   path: string;
-  response: GenericModel;
+  response: GenericModel<any>;
 
   constructor(image?: File, path?: string) {
     this.image = image;

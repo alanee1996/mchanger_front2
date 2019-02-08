@@ -9,6 +9,7 @@ import { ProfileUpdateModel } from '../Models/profileUpdateModel';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from '../Services/user-service.service';
+import { GenericModel } from '../Models/genericModel';
 
 @Component({
   selector: 'app-profile',
@@ -125,4 +126,5 @@ export class ProfileComponent implements OnInit {
     }
   }
 }
+
 
