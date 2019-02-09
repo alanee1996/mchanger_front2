@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -6,5 +8,4 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
   title = 'mchanger';
-
 }

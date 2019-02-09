@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-role',
@@ -9,12 +11,14 @@ export class RoleComponent implements OnInit {
 
   public navlink = [
     { path: 'list', label: 'Role List' },
-    { path: 'create', label: 'Role Creation' }
+    { path: 'detail/create', label: 'Role Creation' }
   ];
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
+
   }
 
 }

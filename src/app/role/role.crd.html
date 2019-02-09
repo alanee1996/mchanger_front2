@@ -1,5 +1,49 @@
-<p *ngIf="this.message; else content" class="text-danger display-1ng s">{{ message }}</p>
-
+<p *ngIf="this.message; else content" class="text-danger display-1ng s">
+    {{ message }}</p>
 <ng-template #content>
-
-</ng-template>
+    <div class="col-12 mt-5 text-center">
+        <h2>
+            {{title}}</h2>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="col-12 mt-5">
+        <form [formGroup]="roleForm" class="col-12" method="post">
+            <mat-form-field class="col-lg-6">
+                <input [(ngModel)]="data.rolename" formControlName="rolename" matInput placeholder="Role Name" type="text">
+                    <mat-error *ngIf="roleForm.get('rolename').invalid">Role name  cannot be null</mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-lg-6">
+                    <mat-select [(ngModel)]="data.roleStatus" formControlName="isactive" placeholder="Role Status">
+                        <mat-option [value]="" disabled>Please select value</mat-option>
+                        <mat-option [value]="true">Active</mat-option>
+                        <mat-option [value]="false">Deactive</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="roleForm.get('isactive').invalid">Please make sure the role status is selected</mat-error>
+                </mat-form-field>
+            </form>
+            <div class="col-12">
+                <mat-card *ngFor="let category of data.roleCategories" class="col-12 mt-4 md-5">
+                    <mat-card-header>
+                        <mat-card-title>
+                            {{category.categoryName}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <mat-list>
+                            <mat-list-item *ngFor="let permission of category.permissions">
+                                {{ permission.permissionName }}
+                                <mat-slide-toggle [(ngModel)]="permission.selected" class="ml-auto"></mat-slide-toggle>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-12 p-4">
+          <button class="float-right btn-block" color="primary" mat-raised-button (click)="onSubmit()">Update</button>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+    </ng-template>

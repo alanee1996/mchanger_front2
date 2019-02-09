@@ -30,7 +30,7 @@
                     <td>
                         {{ role.modifiedDate }}</td>
                     <td class="text-center">
-                        <button mat-button class="bg-primary" matTooltip="Edit">
+                        <button mat-button class="bg-primary" matTooltip="Edit" [routerLink]="['/dashboard/roles/detail','update']" [queryParams]="{id: role.id}">
                             <i class="material-icons text-white">
                                 create
                             </i>

@@ -15,8 +15,9 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [
   ],
@@ -25,7 +26,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   ],
 
   exports: [
+    MatSlideToggleModule,
     MatProgressBarModule,
+    MatSelectModule,
     MatPaginatorModule,
     MatDividerModule,
     LayoutModule,
