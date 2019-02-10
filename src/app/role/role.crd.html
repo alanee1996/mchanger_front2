@@ -7,7 +7,7 @@
         <mat-divider></mat-divider>
     </div>
     <div class="col-12 mt-5">
-        <form [formGroup]="roleForm" class="col-12" method="post">
+        <form [formGroup]="roleForm" class="col-12" method="post" id="roleForm">
             <mat-form-field class="col-lg-6">
                 <input [(ngModel)]="data.rolename" formControlName="rolename" matInput placeholder="Role Name" type="text">
                     <mat-error *ngIf="roleForm.get('rolename').invalid">Role name  cannot be null</mat-error>
@@ -20,6 +20,7 @@
                     </mat-select>
                     <mat-error *ngIf="roleForm.get('isactive').invalid">Please make sure the role status is selected</mat-error>
                 </mat-form-field>
+                <input #smbtn type="submit" class="invisible"/>
             </form>
             <div class="col-12">
                 <mat-card *ngFor="let category of data.roleCategories" class="col-12 mt-4 md-5">
@@ -40,7 +41,8 @@
             </div>
         </div>
         <div class="col-12 p-4">
-          <button class="float-right btn-block" color="primary" mat-raised-button (click)="onSubmit()">Update</button>
+          <button class="float-right btn-block" color="primary" mat-raised-button (click)="onSubmit(smbtn)" *ngIf="!isCreate">Update</button>
+          <button class="float-right btn-block" color="primary" mat-raised-button (click)="onSubmitCreate(smbtn)" *ngIf="isCreate">Create</button>
         </div>
         <br />
         <br />

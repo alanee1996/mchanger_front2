@@ -3,14 +3,11 @@ import { RoleService } from '../Services/role.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { GenericModel } from '../Models/genericModel';
 import {
-  MatSnackBar,
-  MatTab,
-  MatTableDataSource,
-  MatPaginator
+  MatSnackBar
 } from '@angular/material';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { RoleDetailModel } from '../Models/role-detail-model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -23,12 +20,12 @@ export class RoleCRDComponent implements OnInit {
   public data: RoleDetailModel = new RoleDetailModel();
   public roleForm: FormGroup;
   public title;
+  public isCreate: boolean;
 
   constructor(
     private roleService: RoleService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private spinner: NgxSpinnerService,
     private activeRoute: ActivatedRoute
   ) {  }
 
@@ -43,6 +40,7 @@ export class RoleCRDComponent implements OnInit {
       if (action === 'create' || action === 'update') {
         if (action === 'update') {
           this.title = 'Role Modification';
+          this.isCreate = false;
           let id: string = null;
           this.activeRoute.queryParamMap.subscribe(qparams => {
             id = qparams.get('id');
@@ -62,8 +60,18 @@ export class RoleCRDComponent implements OnInit {
               });
           }
         } else {
+          this.formInit();
           this.title = 'Role Creation';
-          this.data = new RoleDetailModel();
+          this.isCreate = true;
+          this.roleService.getCreateRoleDetails()
+            .subscribe(d => {
+              this.model = d;
+              if (d.status === 'failed') {
+                this.snackBar.open(this.model.message);
+              }
+              this.data = this.model.data;
+              this.data.roleStatus = null;
+            });
         }
       } else {
         this.message = 'Invalid action detected';
@@ -88,7 +96,35 @@ export class RoleCRDComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    console.log(this.data);
+  onSubmit(btn: HTMLButtonElement) {
+    btn.click();
+    if (!this.roleForm.invalid) {
+      this.roleService.updateRole(this.data).subscribe(d => {
+        this.model = d;
+        if (this.model.status === 'success') {
+          this.data = this.model.data;
+        }
+        setTimeout(() => {
+          this.router.navigate(['../../'], { relativeTo: this.activeRoute });
+        }, 4000);
+        this.snackBar.open(this.model.message, 'Dismiss', { duration: 3000 });
+      });
+    }
+  }
+
+  onSubmitCreate(btn: HTMLButtonElement) {
+    btn.click();
+    if (!this.roleForm.invalid) {
+      this.roleService.createRole(this.data).subscribe(d => {
+        this.model = d;
+        if (this.model.status === 'success') {
+          this.data = this.model.data;
+        }
+          setTimeout(() => {
+            this.router.navigate(['../../'], { relativeTo: this.activeRoute });
+          }, 4000);
+        this.snackBar.open(this.model.message, 'Dismiss', { duration: 3000 });
+      });
+    }
   }
 }

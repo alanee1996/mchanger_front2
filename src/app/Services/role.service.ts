@@ -30,4 +30,41 @@ export class RoleService {
     });
     return res;
   }
+
+  public getCreateRoleDetails(): Observable<GenericModel<RoleDetailModel>> {
+    const res = this.http.get<GenericModel<RoleDetailModel>>(this.domain + 'role/create', {
+      headers : this.auth.getSecureHeader()
+    });
+    return res;
+  }
+
+  public updateRole(model: RoleDetailModel): Observable<GenericModel<RoleDetailModel>> {
+    const res = this.http.post<GenericModel<RoleDetailModel>>(this.domain + 'role/update/' + model.id.toString(), model, {
+      headers: this.auth.getSecureHeader()
+    });
+    return res;
+  }
+
+  public createRole(model: RoleDetailModel): Observable<GenericModel<RoleDetailModel>> {
+    const res = this.http.post<GenericModel<RoleDetailModel>>(this.domain + 'role/create', model, {
+      headers: this.auth.getSecureHeader()
+    });
+    return res;
+  }
+
+  public deleteRole(id: number):  Observable<GenericModel<Array<Role>>> {
+    const res = this.http.post<GenericModel<Array<Role>>>(this.domain + 'role/delete', null , {
+      headers: this.auth.getSecureHeader(),
+      params: new HttpParams().append('id', id.toString())
+    });
+    return res;
+  }
+
+  public search(value: string):  Observable<GenericModel<Array<Role>>> {
+    const res = this.http.get<GenericModel<Array<Role>>>(this.domain + 'role/search', {
+      headers: this.auth.getSecureHeader(),
+      params: new HttpParams().append('search', value)
+    });
+    return res;
+  }
 }
