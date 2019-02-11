@@ -14,7 +14,6 @@ import { ProfileImgDialogComponent } from './profile-img-dialog/profile-img-dial
 import { UserService } from './Services/user-service.service';
 import { TransactionService } from './Services/transaction.service';
 import { RoleService } from './Services/role.service';
-import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { PaginatorComponent } from './paginator/paginator.component';
     PageNotFoundComponent,
     RoutingCollection,
     ProfileImgDialogComponent,
-    PaginatorComponent,
   ],
   entryComponents: [ProfileImgDialogComponent],
   imports: [
