@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
 import { Observable } from 'rxjs';
 import { GenericModel } from '../Models/genericModel';
-import { User } from '../Models/user';
+import { User, UserDetail } from '../Models/user';
 
 
 @Injectable({
@@ -36,4 +36,25 @@ export class UserService {
     });
     return res;
   }
+
+  public getUserList(pageNo: Number = 1): Observable<GenericModel<Array<UserDetail>>> {
+    const headers = this.auth.getSecureHeader();
+    const res = this.http.get<GenericModel<Array<UserDetail>>>(this.host + 'user/list', {
+      headers: headers,
+      params: new HttpParams().append('pageNo', pageNo.toString())
+    });
+    return res;
+  }
+
+  public getUserDetails(id: Number): Observable<GenericModel<UserDetail>> {
+    const headers = this.auth.getSecureHeader();
+    const res = this.http.get<GenericModel<UserDetail>>(this.host + 'user/update/' + id.toString(), {
+      headers: headers
+    });
+    return res;
+  }
+
+  // public getCreateUserDetails(): Observable<GenericModel>{
+
+  // }
 }

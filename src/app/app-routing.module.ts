@@ -9,6 +9,9 @@ import { WithdrawalComponent } from './withdrawal/withdrawal.component';
 import { RoleComponent } from './role/role.component';
 import { RoleListComponent } from './role/roles.list.component';
 import { RoleCRDComponent } from './role/role.crd.component';
+import { UserComponent } from './user/user.component';
+import { UserListComponent } from './user/user.list.component';
+import { UserCRDComponent } from './user/user.crd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -27,7 +30,15 @@ const routes: Routes = [
           { path: 'detail/:action', component: RoleCRDComponent},
           { path: '**', component: PageNotFoundComponent}
         ]
-    }
+      },
+      {
+        path: 'users', component: UserComponent,
+        children: [
+          { path: '', component: UserListComponent },
+          { path: 'list', component: UserListComponent },
+          { path: 'detail/:action', component: UserCRDComponent},
+          { path: '**', component: PageNotFoundComponent}
+      ] }
     ]
   },
   { path: '**' , component: PageNotFoundComponent}
@@ -41,5 +52,5 @@ export class AppRoutingModule { }
 
 export const RoutingCollection = [
   PageNotFoundComponent, LoginComponent, RootpageComponent, SidenavComponent, ProfileComponent, WithdrawalComponent,
-  RoleComponent, RoleListComponent, RoleCRDComponent
+  RoleComponent, RoleListComponent, RoleCRDComponent, UserCRDComponent, UserListComponent, UserComponent
 ];
