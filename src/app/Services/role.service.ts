@@ -60,10 +60,10 @@ export class RoleService {
     return res;
   }
 
-  public search(value: string):  Observable<GenericModel<Array<Role>>> {
+  public search(value: string, pageno: Number = 1):  Observable<GenericModel<Array<Role>>> {
     const res = this.http.get<GenericModel<Array<Role>>>(this.domain + 'role/search', {
       headers: this.auth.getSecureHeader(),
-      params: new HttpParams().append('search', value)
+      params: new HttpParams().append('search', value).append('pageNo', pageno.toString())
     });
     return res;
   }

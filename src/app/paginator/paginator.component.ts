@@ -23,7 +23,7 @@ export class PaginatorComponent implements OnInit {
   }
 
   clickEventPrev() {
-    this.onClickPre();
+    this.onClickPre(1);
   }
 
   clickEventNext() {

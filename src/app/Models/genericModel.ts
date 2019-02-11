@@ -4,8 +4,8 @@ export class GenericModel<T> {
   data: T;
   status: string;
   message: string;
-  fileResponse: FileUploadModel;
-  pagination: Pagination;
+  fileResponse: FileUploadModel = new FileUploadModel();
+  pagination: Pagination = new Pagination();
 }
 
 export class Pagination {

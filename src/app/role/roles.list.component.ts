@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from '../Services/role.service';
 import { Router } from '@angular/router';
-import { GenericModel } from '../Models/genericModel';
+import { GenericModel, Pagination } from '../Models/genericModel';
 import { Role } from '../Models/role';
-import { MatSnackBar, MatTab, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatSnackBar, MatPaginator, PageEvent } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { PaginatorComponent } from '../paginator/paginator.component';
 
 @Component({
   selector: 'app-role-list',
@@ -13,13 +12,12 @@ import { PaginatorComponent } from '../paginator/paginator.component';
 })
 export class RoleListComponent implements OnInit {
 
+  public model: GenericModel<Array<Role>> = new GenericModel<Array<Role>>();
+  public data: Array<Role>;
 
   constructor(private roleService: RoleService, private router: Router,
     private snackBar: MatSnackBar, private spinner: NgxSpinnerService) {
     }
-
-  public model: GenericModel<Array<Role>>;
-  public data: Array<Role>;
 
   async ngOnInit() {
     this.spinner.show();
@@ -54,8 +52,30 @@ export class RoleListComponent implements OnInit {
     });
   }
 
-  test() {
-    console.log('function call');
+  pageEvent(event: PageEvent, searchIn: HTMLInputElement) {
+    if (searchIn.value) {
+      this.roleService.search(searchIn.value, event.pageIndex + 1).subscribe(d => {
+        this.model = d;
+        if (this.model.status === 'failed') {
+          this.snackBar.open(this.model.message, 'Dismiss', {
+            duration: 4000
+          });
+        } else {
+          this.data = this.model.data;
+        }
+      });
+    } else {
+      this.roleService.getAllRole(event.pageIndex + 1).subscribe(d => {
+        this.model = d;
+        if (this.model.status === 'failed') {
+          this.snackBar.open(this.model.message, 'Dismiss', {
+            duration: 4000
+          });
+        } else {
+          this.data = this.model.data;
+        }
+      });
+    }
   }
 }
 
