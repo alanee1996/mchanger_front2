@@ -36,7 +36,8 @@ const routes: Routes = [
         children: [
           { path: '', component: UserListComponent },
           { path: 'list', component: UserListComponent },
-          { path: 'detail/:action', component: UserCRDComponent},
+          { path: 'detail/:action', component: UserCRDComponent },
+          // { path: 'detail/create', component: UserCreateComponent},
           { path: '**', component: PageNotFoundComponent}
       ] }
     ]
@@ -52,5 +53,5 @@ export class AppRoutingModule { }
 
 export const RoutingCollection = [
   PageNotFoundComponent, LoginComponent, RootpageComponent, SidenavComponent, ProfileComponent, WithdrawalComponent,
-  RoleComponent, RoleListComponent, RoleCRDComponent, UserCRDComponent, UserListComponent, UserComponent
+  RoleComponent, RoleListComponent, RoleCRDComponent, UserListComponent, UserComponent, UserCRDComponent
 ];

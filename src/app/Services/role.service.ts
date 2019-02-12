@@ -67,4 +67,11 @@ export class RoleService {
     });
     return res;
   }
+
+  public getSimpleRoleList(): Observable<GenericModel<Array<Role>>> {
+    const res = this.http.get<GenericModel<Array<Role>>>(this.domain + 'role/get/simple/roles', {
+      headers: this.auth.getSecureHeader(),
+    });
+    return res;
+  }
 }

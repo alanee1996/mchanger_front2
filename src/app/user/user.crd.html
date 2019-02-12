@@ -1,33 +1,80 @@
 <p *ngIf="this.message; else content" class="text-danger display-1ng s">
-  {{ message }}</p>
+    {{ message }}</p>
 <ng-template #content>
-  <div class="col-12 mt-5 text-center">
-      <h2>
-          {{title}}</h2>
-      <mat-divider></mat-divider>
-  </div>
-  <div class="col-12 mt-5">
-      <form [formGroup]="userForm" class="col-12" id="userForm" (submit)="decider($event)">
-          <mat-form-field class="col-lg-6">
-              <input matInput placeholder="Username" value="{{ data.username }}" type="text" disabled>
-              </mat-form-field>
-              <mat-form-field class="col-lg-6">
-                  <input [(ngModel)]="data.email" formControlName="email" matInput placeholder="Email Address" type="text">
-                  <mat-error *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required')">
-                      Please enter a valid email address
-                    </mat-error>
-                    <mat-error *ngIf="userForm.get('email').hasError('required')">
-                      Email is <strong>required</strong>
-                    </mat-error>
+    <div class="col-12 mt-5 text-center">
+        <h2>
+            {{title}}</h2>
+        <mat-divider></mat-divider>
+    </div>
+
+    <div class="col-12 mt-5">
+        <form (submit)="decider($event)" [formGroup]="userForm" class="col-12" id="userForm">
+            <mat-form-field class="col-lg-6">
+                <input matInput placeholder="Username" [(ngModel)]="data.username" formControlName="username" type="text"/>
+            </mat-form-field>
+                <mat-form-field class="col-lg-6">
+                    <input [(ngModel)]="data.email" formControlName="email" matInput placeholder="Email Address" type="text">
+                        <mat-error *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required')">
+                            Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="userForm.get('email').hasError('required')">
+                            Email is
+                            <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-lg-6">
+                        <mat-select [(ngModel)]="data.active" formControlName="active" placeholder="User Status">
+                            <mat-option [value]="" disabled>Please select value</mat-option>
+                            <mat-option [value]="true">Active</mat-option>
+                            <mat-option [value]="false">Deactive</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-lg-6" *ngIf="this.type === 'admin' || this.isCreate">
+                      <mat-select [(ngModel)]="data.roleId" formControlName="role" placeholder="Role">
+                          <mat-option [value]="role.id" *ngFor="let role of simpleRole.data">{{ role.rolename }}</mat-option>
+                      </mat-select>
                   </mat-form-field>
-              <div class="col-12 p-4">
-                <button class="float-right btn-block" color="primary" mat-raised-button type="submit" *ngIf="!isCreate">Update</button>
-                <button class="float-right btn-block" color="primary" mat-raised-button type="submit" *ngIf="isCreate">Create</button>
-              </div>
-          </form>
-      </div>
-      <br />
-      <br />
-      <br />
-      <br />
-  </ng-template>
+                    <mat-form-field class="col-lg-6" *ngIf="!isCreate">
+                      <input matInput disabled [value]="data.type" placeholder="User Type"/>
+                    </mat-form-field>
+                    <mat-form-field class="col-lg-6">
+                        <input [(ngModel)]="data.fname" formControlName="fname" matInput placeholder="First name" type="text"/>
+                    </mat-form-field>
+                    <mat-form-field class="col-lg-6">
+                        <input [(ngModel)]="data.lname" formControlName="lname" matInput placeholder="Last name" type="text"/>
+                    </mat-form-field>
+                    <div *ngIf="data.type ==='client'">
+                      <div class="col-12 mt-4 mb-4 text-center">
+                        <h2>User Information</h2>
+                        <mat-divider></mat-divider>
+                      </div>
+                        <mat-form-field class="col-lg-6">
+                            <input [(ngModel)]="data.phone" formControlName="phone" matInput placeholder="Phone Number" type="text"/>
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-6">
+                            <input [(ngModel)]="data.career" formControlName="career" matInput placeholder="Career" type="text"/>
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-6">
+                            <input [(ngModel)]="data.businessNature" formControlName="business" matInput placeholder="Business Nature" type="text"/>
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-6">
+                            <input [(ngModel)]="data.ic" formControlName="ic" matInput placeholder="IC" type="text"/>
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-6">
+                            <input [(ngModel)]="data.passportNo" formControlName="passport" matInput placeholder="Passport Number" type="text"/>
+                        </mat-form-field>
+                        <mat-form-field class="col-lg-6">
+                            <input disabled matInput placeholder="Address" [value]="data.address.location"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button *ngIf="!isCreate" class="float-right btn-block" color="primary" mat-raised-button type="submit">Update</button>
+                        <button *ngIf="isCreate" class="float-right btn-block" color="primary" mat-raised-button type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        </ng-template>

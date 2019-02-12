@@ -17,7 +17,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
   ],
@@ -26,6 +27,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
   ],
 
   exports: [
+    MatAutocompleteModule,
     MatSlideToggleModule,
     MatProgressBarModule,
     MatSelectModule,

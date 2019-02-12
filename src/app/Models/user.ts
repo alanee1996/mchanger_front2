@@ -36,7 +36,7 @@ export class UserDetail {
   businessNature: string;
   ic: string;
   passportNo: string;
-  address: Address;
+  address: Address = new Address();
 }
 
 export class Address {
@@ -50,3 +50,9 @@ export class Address {
     id: number;
     name: string;
   }
+
+
+export class UserType {
+  type: string;
+  value: string;
+}

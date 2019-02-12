@@ -13,5 +13,6 @@ export class Pagination {
   nextPage: Number;
   totalPage: Number;
   pageSize: Number;
+  totalElement: Number;
   haveNext: boolean;
 }

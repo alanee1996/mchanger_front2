@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleService } from '../Services/role.service';
 import { Router } from '@angular/router';
 import { GenericModel, Pagination } from '../Models/genericModel';
-import { Role } from '../Models/role';
 import { MatSnackBar, MatPaginator, PageEvent } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserDetail } from '../Models/user';
@@ -33,16 +31,43 @@ export class UserListComponent implements OnInit {
     this.spinner.hide();
   }
 
-  delete(id) {
-
-  }
-
   search(searchIn: HTMLInputElement) {
-
+    this.userService.search(searchIn.value).subscribe(d => {
+      this.model = d;
+      if (this.model.status === 'failed') {
+        this.snackBar.open(this.model.message, 'Dismiss', {
+          duration: 4000
+        });
+      } else {
+        this.data = this.model.data;
+      }
+    });
   }
 
   pageEvent(event: PageEvent, searchIn: HTMLInputElement) {
-
+    if (searchIn.value) {
+      this.userService.search(searchIn.value, event.pageIndex + 1).subscribe(d => {
+        this.model = d;
+        if (this.model.status === 'failed') {
+          this.snackBar.open(this.model.message, 'Dismiss', {
+            duration: 4000
+          });
+        } else {
+          this.data = this.model.data;
+        }
+      });
+    } else {
+      this.userService.getUserList(event.pageIndex + 1).subscribe(d => {
+        this.model = d;
+        if (this.model.status === 'failed') {
+          this.snackBar.open(this.model.message, 'Dismiss', {
+            duration: 4000
+          });
+        } else {
+          this.data = this.model.data;
+        }
+      });
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 import { ProfileDialogModel } from '../Models/ProfileImgModel';
 import { Observable } from 'rxjs';
 import { GenericModel } from '../Models/genericModel';
-import { User, UserDetail } from '../Models/user';
+import { User, UserDetail, UserType } from '../Models/user';
 
 
 @Injectable({
@@ -54,7 +54,42 @@ export class UserService {
     return res;
   }
 
-  // public getCreateUserDetails(): Observable<GenericModel>{
+  public getUserType(): Observable<GenericModel<Array<UserType>>> {
+    const res = this.http.get<GenericModel<Array<UserType>>>(this.host + 'user/get/type', {
+      headers: this.auth.getSecureHeader()
+    });
 
-  // }
+    return res;
+  }
+
+  public updateUser(id: string ,model: UserDetail): Observable<GenericModel<UserDetail>> {
+    const headers = this.auth.getSecureHeader();
+    const res = this.http.post<GenericModel<UserDetail>>(this.host + 'user/update/' + id , model, {
+      headers: headers
+    });
+    return res;
+  }
+
+  public CreateUserDetails(model: UserDetail): Observable<GenericModel<UserDetail>> {
+    const headers = this.auth.getSecureHeader();
+    const res = this.http.post<GenericModel<UserDetail>>(this.host + 'user/create', model, {
+      headers: headers
+    });
+    return res;
+  }
+
+  public search(value: string, pageno: Number = 1):  Observable<GenericModel<Array<UserDetail>>> {
+    const res = this.http.get<GenericModel<Array<UserDetail>>>(this.host + 'user/search', {
+      headers: this.auth.getSecureHeader(),
+      params: new HttpParams().append('search', value).append('pageNo', pageno.toString())
+    });
+    return res;
+  }
+
+  public delete(id: Number): Observable<GenericModel<Array<UserDetail>>> {
+    const res = this.http.post<GenericModel<Array<UserDetail>>>(this.host + 'user/delete/' + id.toString(), null, {
+      headers: this.auth.getSecureHeader()
+    });
+    return res;
+  }
 }
