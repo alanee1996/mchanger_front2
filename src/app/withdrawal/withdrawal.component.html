@@ -1,3 +1,92 @@
-<p>
-  withdrawal works!
-</p>
+<link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" rel="stylesheet">
+    <div class="col-12">
+        <div class="card mb-3">
+            <div [ngClass]="isStart ? 'show' : 'hidden'" class="card-header bg-white">
+                <div class="row col-12">
+                    <zxing-scanner #scanner (scanComplete)="scanComplete($event)" (scanSuccess)="handleQrCodeResult($event)" [device]="currentDevice" class="col-lg-3 col-md-6 col-sm-12 offset-lg-4 offset-md-3" start="isStart"></zxing-scanner>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="jumbotron shadow-sm">
+                    <h5 class="card-title">Withdrawal</h5>
+                    <mat-divider></mat-divider>
+                    <div *ngIf="haveValue" class="mt-5">
+                        <div *ngIf="this.wp.user.profile_img" class="d-flex flex-column mb-5">
+                            <div class="d-flex justify-content-center">
+                                <img src="{{ this.wp.user.profile_img }}" width="150" height="150" class="rounded-circle"/>
+                            </div>
+                        </div>
+                        <form class="col-12 row p-0" (submit)="approve($event)" >
+                            <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                <mat-label>Withdraw Amount</mat-label>
+                                <input [value]="wp.amount" matInput>
+                                    <mat-icon matSuffix>attach_money</mat-icon>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                    <mat-label>Withdraw Currency</mat-label>
+                                    <input [value]="wp.currency" matInput>
+                                        <mat-icon matSuffix>monetization_on</mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                        <mat-label>Date</mat-label>
+                                        <input [value]="wp.date" matInput>
+                                            <mat-icon matSuffix>calendar_today</mat-icon>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                            <mat-label>Purpose</mat-label>
+                                            <input [value]="wp.purpose" matInput>
+                                                <mat-icon matSuffix>description</mat-icon>
+                                                <mat-hint class="text-warning">If this field is not empty mean that this user have made transaction more than RM 3000 today</mat-hint>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                                <mat-label>Username</mat-label>
+                                                <input [value]="wp.user.username" matInput>
+                                                    <mat-icon matSuffix>person</mat-icon>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                                    <mat-label>Email</mat-label>
+                                                    <input [value]="wp.user.email" matInput>
+                                                        <mat-icon matSuffix>mail</mat-icon>
+                                                    </mat-form-field>
+                                                    <div *ngIf="wp.purpose" class="col-12 p-0">
+                                                        <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                                            <mat-label>Career</mat-label>
+                                                            <input [value]="wp.user.career" matInput>
+                                                                <mat-icon matSuffix>work</mat-icon>
+                                                            </mat-form-field>
+                                                            <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                                                <mat-label>Business Nature</mat-label>
+                                                                <input [value]="wp.user.businessNature" matInput>
+                                                                    <mat-icon matSuffix>business</mat-icon>
+                                                                </mat-form-field>
+                                                                <mat-form-field appearance="outline" class="col-lg-6 mb-3" *ngIf="wp.user.ic">
+                                                                    <mat-label>IC</mat-label>
+                                                                    <input [value]="wp.user.ic" matInput>
+                                                                        <mat-icon matSuffix>credit_card</mat-icon>
+                                                                    </mat-form-field>
+                                                                    <mat-form-field appearance="outline" class="col-lg-6 mb-3" *ngIf="wp.user.passportNo">
+                                                                        <mat-label>Passport</mat-label>
+                                                                        <input [value]="wp.user.passportNo" matInput >
+                                                                            <mat-icon matSuffix>perm_identity</mat-icon>
+                                                                        </mat-form-field>
+                                                                        <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                                                            <mat-label>Name</mat-label>
+                                                                            <input [value]="wp.user.fname + ' ' + wp.user.lname" matInput>
+                                                                                <mat-icon matSuffix>person</mat-icon>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <button class="btn-block" color="primary" mat-raised-button type="submit">
+                                                                                Approve
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer bg-white">
+                                                            <button (click)="startCamera()" class="float-right" color="warn" mat-fab matTooltip="Click To Scan QR Code">
+                                                                <i class="fas fa-qrcode"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>

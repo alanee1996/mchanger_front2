@@ -1,0 +1,57 @@
+<section class="col-12 mt-5">
+  <div class="col-12 p-0">
+      <mat-form-field appearance="outline" class="float-right">
+          <mat-label>Search</mat-label>
+          <input #searchIn (keyup)="search(searchIn)" matInput placeholder="Placeholder">
+              <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-hover table-bordered table-light shadow">
+              <thead>
+                  <tr>
+                      <th scope="col">Transaction ID</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Transaction Type</th>
+                      <th scope="col">Created Date</th>
+                      <th scope="col">Modified Date</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let transaction of data">
+                      <td>
+                          <a [routerLink]="['/dashboard/transaction/detail', transaction.id ]">{{ transaction.id }}</a>
+                        </td>
+                      <td class="text-center">
+                        <i *ngIf="transaction.statusId === 'S001'" class="material-icons text-success" [matTooltip]="transaction.status">
+                          check_circle
+                      </i>
+                      <i *ngIf="transaction.statusId === 'S002'" class="material-icons text-danger" [matTooltip]="transaction.status">
+                          cancel
+                      </i>
+                      <i *ngIf="transaction.statusId === 'S003'" class="material-icons text-warning" [matTooltip]="transaction.status">
+                        access_time
+                    </i>
+                    <i *ngIf="transaction.statusId === 'S004'" class="material-icons text-primary" [matTooltip]="transaction.status">
+                      sync
+                  </i>
+                        </td>
+                      <td>
+                        {{ transaction.transactionType | uppercase }}
+                      </td>
+                      <td>
+                          {{ transaction.createdDate }}</td>
+                      <td>
+                          {{ transaction.modifiedDate }}</td>
+                  </tr>
+              </tbody>
+              <tfoot class="bg-white">
+                  <tr>
+                      <td colspan="6" class="p-0">
+                          <mat-paginator (page)="pageEvent($event,searchIn)" [length]="model.pagination.totalElement" [pageSize]="model.pagination.pageSize" class="float-right"></mat-paginator>
+                      </td>
+                  </tr>
+              </tfoot>
+          </table>
+      </div>
+  </section>

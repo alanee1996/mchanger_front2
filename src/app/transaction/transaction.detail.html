@@ -1,0 +1,89 @@
+<div class="col-12 mt-5">
+    <div class="jumbotron bg-white shadow-sm">
+        <h3 class="text-center">Transaction Detail</h3>
+        <mat-divider></mat-divider>
+        <div class="mt-5">
+            <form>
+                <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                    <mat-label>Transaction ID</mat-label>
+                    <input [value]="model.data.id" matInput>
+                        <mat-icon matSuffix>vpn_key</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Transaction Type</mat-label>
+                        <input [value]="model.data.transactionType | uppercase" matInput>
+                            <mat-icon matSuffix>category</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Transaction Status</mat-label>
+                        <input [value]="model.data.status" matInput>
+                            <mat-icon class="text-success" *ngIf="model.data.statusId === 'S001'" matSuffix>check_circle</mat-icon>
+                            <mat-icon class="text-danger" *ngIf="model.data.statusId === 'S002'" matSuffix>cancel</mat-icon>
+                            <mat-icon class="text-warning" *ngIf="model.data.statusId === 'S003'" matSuffix>access_time</mat-icon>
+                            <mat-icon class="text-primary" *ngIf="model.data.statusId === 'S004'" matSuffix>sync</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Offer ID</mat-label>
+                        <input [value]="model.data.offer" matInput>
+                            <mat-icon matSuffix>local_offer</mat-icon>
+                    </mat-form-field>
+                    <div id="con1" *ngIf="(model.data.transactionTypeId === 'T001' || model.data.transactionTypeId === 'T002'  || model.data.transactionTypeId === 'T003'); else con2">
+                            <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                    <mat-label>Transfer From</mat-label>
+                                    <input [value]="model.data.fromUserName" matInput>
+                                        <mat-icon matSuffix>person</mat-icon>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                                    <mat-label>Transaction To</mat-label>
+                                    <input [value]="model.data.toUserName" matInput>
+                                        <mat-icon matSuffix>person_outline</mat-icon>
+                                </mat-form-field>
+                    </div>
+                    <ng-template #con2>
+                        <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                            <mat-label>Withdraw By</mat-label>
+                            <input [value]="model.data.fromUserName" matInput>
+                                <mat-icon matSuffix>person</mat-icon>
+                        </mat-form-field>
+                    </ng-template>
+
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>From Currency</mat-label>
+                        <input [value]="model.data.fromCurrency" matInput>
+                            <mat-icon matSuffix>attach_money</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>To Currency</mat-label>
+                        <input [value]="model.data.toCurrency" matInput>
+                            <mat-icon matSuffix>attach_money</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Transfer Amount</mat-label>
+                        <input [value]="model.data.amount" matInput>
+                            <mat-icon matSuffix>monetization_on</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Tax Amount</mat-label>
+                        <input [value]="model.data.total - model.data.amount" matInput>
+                            <mat-icon matSuffix>local_atm</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Total Transfer Amount</mat-label>
+                        <input [value]="model.data.total" matInput>
+                            <mat-icon matSuffix>monetization_on</mat-icon>
+                            <mat-hint class="text-warning">This value is include tax and after convertion of currency from {{model.data.fromCurrency}} {{model.data.toCurrency}}</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Created Date</mat-label>
+                        <input [value]="model.data.createdDate" matInput>
+                            <mat-icon matSuffix>calendar_today</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-lg-6 mb-3">
+                        <mat-label>Modified Date</mat-label>
+                        <input [value]="model.data.modifiedDate" matInput>
+                            <mat-icon matSuffix>calendar_today</mat-icon>
+                    </mat-form-field>
+              </form>
+          </div>
+    </div>
+</div>

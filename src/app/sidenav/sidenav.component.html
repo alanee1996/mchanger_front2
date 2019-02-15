@@ -26,6 +26,12 @@
                 </i>
             </a>
             <mat-divider></mat-divider>
+            <a [routerLink]="['transaction/list']" mat-list-item>Transaction List
+                <i class="material-icons ml-auto text-secondary ">
+                  list_alt
+                </i>
+            </a>
+            <mat-divider></mat-divider>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -41,10 +47,11 @@
                     person
                 </i>
             </a>
-            <button (click)="drawer.toggle()" *ngIf="isHandset$ | async" aria-label="Toggle sidenav" class="ml-auto" mat-icon-button type="button">
-                <mat-icon *ngIf="(isHandset$ | async)" aria-label="Side nav toggle icon">menu</mat-icon>
+            <button (click)="drawer.toggle()" aria-label="Toggle sidenav" class="ml-auto" mat-icon-button type="button">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
         </mat-toolbar>
         <ng-content></ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>
+

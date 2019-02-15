@@ -24,11 +24,11 @@
                             {{ role.id }}</td>
                         <td>
                             {{ role.rolename }}</td>
-                        <td>
-                            <i *ngIf="role.active" class="material-icons text-success">
+                        <td class="text-center">
+                            <i *ngIf="role.active" class="material-icons text-success" matTooltip="Active">
                                 check_circle
                             </i>
-                            <i *ngIf="!role.active" class="material-icons text-danger">
+                            <i *ngIf="!role.active" class="material-icons text-danger" matTooltip="Deactive">
                                 cancel
                             </i>
                         </td>
