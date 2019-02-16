@@ -18,7 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import {MatSelectModule} from '@angular/material/select';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
   ],
@@ -27,6 +28,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
   ],
 
   exports: [
+    ChartsModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatProgressBarModule,

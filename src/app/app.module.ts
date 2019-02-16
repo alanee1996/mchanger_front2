@@ -14,6 +14,8 @@ import { ProfileImgDialogComponent } from './profile-img-dialog/profile-img-dial
 import { UserService } from './Services/user-service.service';
 import { TransactionService } from './Services/transaction.service';
 import { RoleService } from './Services/role.service';
+import { AuthGuard } from './auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { RoleService } from './Services/role.service';
     PageNotFoundComponent,
     RoutingCollection,
     ProfileImgDialogComponent,
+    DashboardComponent,
   ],
   entryComponents: [ProfileImgDialogComponent],
   imports: [
@@ -34,7 +37,7 @@ import { RoleService } from './Services/role.service';
     ZXingScannerModule.forRoot(),
     BrowserAnimationsModule,
   ],
-  providers: [AuthService, UserService, TransactionService, RoleService],
+  providers: [AuthService, , AuthGuard, UserService, TransactionService, RoleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

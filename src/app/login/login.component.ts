@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../Services/auth.service';
 import { LoginModel } from '../Models/login-model';
 import { User } from '../Models/user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   public user: User;
   loginForm: FormGroup;
 
-  constructor(private auth: AuthService, private router: Router, private alert: MatSnackBar) {}
+  constructor(private auth: AuthService, private router: Router, private alert: MatSnackBar, private route: ActivatedRoute) {}
 
   ngOnInit() {
     if (this.auth.isLogin()) {
@@ -44,13 +44,18 @@ export class LoginComponent implements OnInit {
 
   login(event) {
     event.preventDefault();
+    const returnUrl = this.route.snapshot.paramMap.get('returnUrl');
     if (!this.loginForm.invalid) {
       const res = this.auth.login(this.loginModel);
       res.then(d => {
         if (d.status === 'failed') {
           this.alert.open(d['message'], 'Dismiss', { duration: 2000 });
         } else {
-          this.router.navigate(['/dashboard']);
+          if (returnUrl) {
+            this.router.navigate([returnUrl]);
+          } else {
+            this.router.navigate(['/dashboard']);
+         }
         }
       });
     }

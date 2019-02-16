@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../Models/user';
 import { AuthService } from '../Services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rootpage',
@@ -14,10 +13,10 @@ export class RootpageComponent implements OnInit {
   public hasError = false;
   public errorMessage;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
-    if (this.auth.isLogin()) {
+    // if (this.auth.isLogin()) {
       this.auth.getUserProfile().subscribe((d) => {
         if (d['status'] === 'failed') {
           this.hasError = true;
@@ -28,9 +27,9 @@ export class RootpageComponent implements OnInit {
           this.userProfile = d['data'];
         }
       });
-    } else {
-        this.router.navigate(['/']);
-    }
+    // } else {
+    //     this.router.navigate(['/']);
+    // }
 
   }
 }

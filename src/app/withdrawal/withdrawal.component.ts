@@ -37,9 +37,15 @@ export class WithdrawalComponent implements OnInit {
   }
 
 
-  handleQrCodeResult(resultString: string) {
+  async handleQrCodeResult(resultString: string) {
     this.qrResultString = resultString;
-    this.currentDevice = null;
+    const audio = new Audio();
+    audio.src = 'https://www.soundjay.com/button/beep-07.mp3';
+    audio.load();
+    audio.play();
+    await setTimeout(() => {
+      audio.remove();
+    }, 1000);
   }
 
   startCamera() {
@@ -52,15 +58,19 @@ export class WithdrawalComponent implements OnInit {
   }
 
   scanComplete(result: Result) {
-    this.wp = JSON.parse(result.toString());
-    this.withdraw.amount = this.wp.amount;
-    this.withdraw.date = this.wp.date;
-    this.withdraw.purpose = this.wp.purpose;
-    this.withdraw.walletId = this.wp.walletId;
-    this.qrResult = result;
-    this.isStart = false;
-    this.currentDevice = null;
-    this.haveValue = true;
+    try {
+      this.wp = JSON.parse(result.toString());
+      this.withdraw.amount = this.wp.amount;
+      this.withdraw.date = this.wp.date;
+      this.withdraw.purpose = this.wp.purpose;
+      this.withdraw.walletId = this.wp.walletId;
+      this.qrResult = result;
+      this.isStart = false;
+      this.currentDevice = null;
+      this.haveValue = true;
+    } catch (ex) {
+      this.alert.open('Invalid QR code', 'Dismiss', { duration: 3000 });
+    }
   }
 
   async approve(event) {

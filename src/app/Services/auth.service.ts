@@ -14,7 +14,7 @@ export class AuthService {
 
   private domain = AppConfig.domain;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, public router: Router) {
 
   }
 

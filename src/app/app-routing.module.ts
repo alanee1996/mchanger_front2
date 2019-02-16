@@ -14,6 +14,8 @@ import { UserListComponent } from './user/user.list.component';
 import { UserCRDComponent } from './user/user.crd.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionDetailComponent } from './transaction/transaction.detail.component';
+import { AuthGuard } from './auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -21,7 +23,9 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: RootpageComponent,
+    canActivate: [AuthGuard],
     children: [
+      { path: '', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'withdrawal', component: WithdrawalComponent },
       {
@@ -58,5 +62,5 @@ export class AppRoutingModule { }
 export const RoutingCollection = [
   PageNotFoundComponent, LoginComponent, RootpageComponent, SidenavComponent, ProfileComponent, WithdrawalComponent,
   RoleComponent, RoleListComponent, RoleCRDComponent, UserListComponent, UserComponent, UserCRDComponent,
-  TransactionComponent, TransactionDetailComponent
+  TransactionComponent, TransactionDetailComponent, DashboardComponent
 ];
