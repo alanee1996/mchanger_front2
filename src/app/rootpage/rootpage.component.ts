@@ -16,7 +16,6 @@ export class RootpageComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
-    // if (this.auth.isLogin()) {
       this.auth.getUserProfile().subscribe((d) => {
         if (d['status'] === 'failed') {
           this.hasError = true;
@@ -27,9 +26,6 @@ export class RootpageComponent implements OnInit {
           this.userProfile = d['data'];
         }
       });
-    // } else {
-    //     this.router.navigate(['/']);
-    // }
 
   }
 }

@@ -1,27 +1,70 @@
-<script src="node_modules/chart.js/src/chart.js"></script>
-<div class="row">
-  <div class="col-md-6">
-    <div style="display: block;">
-    <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+<section class="mt-5">
+    <div class="col-12">
+        <div class="col-12 jumbotron bg-white shadow pt-2 pb-0">
+            <h4 class="mt-2">Exchange Rates</h4>
+            <mat-divider class="mb-4"></mat-divider>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered table-light">
+                    <thead class="text-center">
+                        <tr>
+                            <th scope="col">Currency</th>
+                            <th scope="col">We Sell</th>
+                            <th scope="col">We Buy</th>
+                            <th scope="col">Original</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr *ngFor="let rate of rates.data">
+                            <th>
+                                <img src="{{rate.icon}}" width="30" class="pr-1"/>
+                                {{ rate.currencyCode }}
+                            </th>
+                            <td>
+                                {{ rate.sell }}</td>
+                            <td>
+                                {{ rate.buy }}</td>
+                            <td>
+                                {{ rate.middleRate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-md-6" style="margin-bottom: 10px">
-    <table class="table table-responsive table-condensed">
-      <tr>
-        <th *ngFor="let label of lineChartLabels">{{label}}</th>
-      </tr>
-      <tr *ngFor="let d of lineChartData">
-        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-      </tr>
-    </table>
-    <button (click)="randomize()">CLICK</button>
-  </div>
-</div>
+</section>
+<section class="mt-5">
+    <div class="row p-3">
+        <div class="col-lg-6">
+            <div class="col-12 jumbotron bg-white shadow pt-3 pb-3">
+                <h5>Currency Selling Percent For
+                    {{ this.months[this.doughnutSelectedMonth-1].value }}</h5>
+                <mat-divider class="mb-2"></mat-divider>
+                <div *ngIf="doughnutReady">
+                    <div style="display: block">
+                        <h4 *ngIf="doughnutChartData.length === 0" class="text-center">No Data</h4>
+                        <canvas *ngIf="doughnutChartData.length > 0" [chartType]="'doughnut'" [data]="doughnutChartData" [labels]="doughnutChartLabels" baseChart></canvas>
+                    </div>
+                    <mat-form-field class="col-12">
+                        <mat-select (selectionChange)="bestSellCurrencyChange($event.value)" [(ngModel)]="doughnutSelectedMonth" placeholder="Display Month">
+                            <mat-option *ngFor="let month of months" [value]="month.id">
+                                {{month.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-12 jumbotron bg-white shadow pt-3" style="padding-bottom:80px!important;">
+                <h5>Monthly Profit</h5>
+                <mat-divider class="mb-2"></mat-divider>
+                <div *ngIf="barChartReady">
+                    <div style="display: block">
+                        <h4 *ngIf="barChartData.length === 0" class="text-center">No Data</h4>
+                        <canvas [chartType]="barChartType" [datasets]="barChartData" [labels]="barChartLabels" [legend]="barChartLegend" baseChart *ngIf="barChartData.length > 0"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

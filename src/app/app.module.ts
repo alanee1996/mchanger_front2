@@ -16,6 +16,7 @@ import { TransactionService } from './Services/transaction.service';
 import { RoleService } from './Services/role.service';
 import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardService } from './Services/dashboard.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ZXingScannerModule.forRoot(),
     BrowserAnimationsModule,
   ],
-  providers: [AuthService, , AuthGuard, UserService, TransactionService, RoleService],
+  providers: [AuthService, , AuthGuard, UserService, TransactionService, RoleService, DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
