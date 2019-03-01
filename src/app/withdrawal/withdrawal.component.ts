@@ -59,6 +59,7 @@ export class WithdrawalComponent implements OnInit {
 
   scanComplete(result: Result) {
     try {
+      console.log(result.toString);
       this.wp = JSON.parse(result.toString());
       this.withdraw.amount = this.wp.amount;
       this.withdraw.date = this.wp.date;

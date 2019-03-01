@@ -54,6 +54,7 @@ export class TransactionComponent implements OnInit {
         }
       });
     } else {
+      console.log(event.pageIndex + 1);
       this.transactionService.getTransactionList(event.pageIndex + 1).subscribe(d => {
         this.model = d;
         if (this.model.status === 'failed') {
