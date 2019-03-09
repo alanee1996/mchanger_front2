@@ -6,6 +6,7 @@ import { User } from '../Models/user';
 import { Observable } from 'rxjs';
 import { TokenExpiredException } from '../Exceptions/TokenExpiredException';
 import { Router } from '@angular/router';
+import { GenericModel } from '../Models/genericModel';
 
 @Injectable({
   providedIn: 'root'
@@ -145,5 +146,17 @@ export class AuthService {
 
   errorHandler(error: HttpErrorResponse) {
     return Observable.throw(error.message || 'Server Error');
-}
+  }
+
+  public resetPassword(oldpass: string, newpass: string): Observable<GenericModel<Object>> {
+    const header = this.getSecureHeader() as HttpHeaders;
+    header.append('Content-Type', 'application/x-www-form-urlencoded');
+    const formData = new FormData();
+    formData.append('oldpassword', oldpass);
+    formData.append('newpassword',newpass);
+    const res = this.http.post<GenericModel<Object>>(this.domain + 'auth/reset/password', formData , {
+      headers: header,
+    });
+    return res;
+  }
 }

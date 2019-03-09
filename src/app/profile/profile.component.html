@@ -50,6 +50,34 @@
         </mat-card>
     </div>
 </section>
+<section class="row mt-5 pl-5 pr-5 pt-3">
+  <div class="col-12">
+      <mat-card class="shadow">
+          <mat-toolbar class="mb-3">
+              <mat-toolbar-row>
+                  <span>Account</span>
+              </mat-toolbar-row>
+          </mat-toolbar>
+          <mat-card-content class="card-font-lg row p-4 pb-5">
+              <form [formGroup]="resetForm" method="post" (submit)="resetPassword($event)" >
+                  <mat-form-field class="col-lg-6">
+                      <input type="text" formControlName="oldpassword" matInput [(ngModel)]="this.oldpass" type="password" placeholder="Current Password"/>
+                      <mat-error *ngIf="resetForm.get('oldpassword').invalid">Please enter the current password</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-lg-6">
+                      <input type="text" formControlName="newpassword" matInsput [(ngModel)]="this.newpass" type="password" placeholder="New Password"/>
+                      <mat-error *ngIf="resetForm.get('newpassword').invalid">Please enter the new password</mat-error>
+                    </mat-form-field>
+                  <div class="col-12">
+                      <button class="float-right" color="accent" mat-raised-button type="submit">
+                          Reset Password
+                      </button>
+                  </div>
+              </form>
+          </mat-card-content>
+      </mat-card>
+  </div>
+</section>
 <br/>
 <br/>
 <br/>

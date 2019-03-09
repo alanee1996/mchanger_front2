@@ -24,7 +24,10 @@ export class ProfileComponent implements OnInit {
   public hasError = false;
   public errorMessage;
   public profileForm: FormGroup;
+  public resetForm: FormGroup;
   public updateModel: ProfileUpdateModel;
+  public oldpass: string;
+  public newpass: string;
 
   constructor(private auth: AuthService, private router: Router, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private userServive: UserService, private snackBar: MatSnackBar) { }
@@ -69,6 +72,21 @@ export class ProfileComponent implements OnInit {
         this.userInfo.lname,
         [
           Validators.required
+        ]
+      )
+    });
+
+    this.resetForm = new FormGroup({
+      'oldpassword': new FormControl(
+        this.oldpass,
+        [
+          Validators.required,
+        ]
+      ),
+      'newpassword': new FormControl(
+        this.newpass,
+        [
+          Validators.required,
         ]
       )
     });
@@ -120,6 +138,17 @@ export class ProfileComponent implements OnInit {
           this.userInfo = d['data'];
         }
         this.snackBar.open(d['message'] , 'Dismiss', {
+          duration: 2000,
+        });
+      });
+    }
+  }
+
+  resetPassword(event) {
+    event.preventDefault();
+    if (!this.resetForm.invalid) {
+      this.auth.resetPassword(this.oldpass, this.newpass).subscribe(m => {
+        this.snackBar.open(m.message, 'Dismiss', {
           duration: 2000,
         });
       });
