@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { GenericModel } from '../Models/genericModel';
 import { TransactionModel } from '../Models/transactionModel';
 import { AppConfig } from '../app-config';
-import { Withdrawal } from '../Models/Withdrawal';
+import { Withdrawal, WithdrawProcess } from '../Models/Withdrawal';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,14 @@ export class TransactionService {
   public withdraw(model: Withdrawal): Observable<GenericModel<TransactionModel>> {
     const res = this.http.post<GenericModel<TransactionModel>>(this.host + 'wallet/withdraw', model, {
       headers: this.auth.getSecureHeader()
+    });
+    return res;
+  }
+
+  public getWithdrawProccess(key: string): Observable<GenericModel<WithdrawProcess>>{
+    const res = this.http.get<GenericModel<WithdrawProcess>>(this.host + 'wallet/qr/content', {
+      headers: this.auth.getSecureHeader(),
+      params: new HttpParams().append('key', key)
     });
     return res;
   }

@@ -59,13 +59,20 @@ export class WithdrawalComponent implements OnInit {
 
   scanComplete(result: Result) {
     try {
-      console.log(result.toString);
-      this.wp = JSON.parse(result.toString());
-      this.withdraw.amount = this.wp.amount;
-      this.withdraw.date = this.wp.date;
-      this.withdraw.purpose = this.wp.purpose;
-      this.withdraw.walletId = this.wp.walletId;
-      this.qrResult = result;
+      const val = JSON.parse(result.toString());
+      this.transactionService.getWithdrawProccess(val.key).toPromise().then(m => {
+        if (m.status === 'failed') {
+          this.alert.open(m.message);
+        } else {
+          this.wp = m.data;
+        }
+      });
+      // this.wp = JSON.parse(result.toString());
+      // this.withdraw.amount = this.wp.amount;
+      // this.withdraw.date = this.wp.date;
+      // this.withdraw.purpose = this.wp.purpose;
+      // this.withdraw.walletId = this.wp.walletId;
+      // this.qrResult = result;
       this.isStart = false;
       this.currentDevice = null;
       this.haveValue = true;
