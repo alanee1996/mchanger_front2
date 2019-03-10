@@ -4,7 +4,10 @@ import { LoginModel } from '../Models/login-model';
 import { User } from '../Models/user';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
+import { ForgetPasswordModel } from '../Models/forgetPasswordModel';
+import { GenericModel } from '../Models/genericModel';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +21,8 @@ export class LoginComponent implements OnInit {
   public user: User;
   loginForm: FormGroup;
 
-  constructor(private auth: AuthService, private router: Router, private alert: MatSnackBar, private route: ActivatedRoute) {}
+  constructor(private auth: AuthService, private router: Router, private alert: MatSnackBar, private route: ActivatedRoute,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     if (this.auth.isLogin()) {
@@ -59,5 +63,20 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  dialogOpen() {
+    const dialogRef = this.dialog.open(ForgetPasswordComponent, {
+      width: '750px',
+      data: new GenericModel<ForgetPasswordModel>()
+    });
+
+    dialogRef.afterClosed().subscribe((result: GenericModel<ForgetPasswordModel>) => {
+      if (result !== undefined) {
+          this.alert.open(result.message , 'Dismiss', {
+            duration: 3000,
+          });
+      }
+    });
   }
 }

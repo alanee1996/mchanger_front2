@@ -65,7 +65,7 @@
                       <mat-error *ngIf="resetForm.get('oldpassword').invalid">Please enter the current password</mat-error>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6">
-                      <input type="text" formControlName="newpassword" matInsput [(ngModel)]="this.newpass" type="password" placeholder="New Password"/>
+                      <input type="text" formControlName="newpassword" matInput [(ngModel)]="this.newpass" type="password" placeholder="New Password"/>
                       <mat-error *ngIf="resetForm.get('newpassword').invalid">Please enter the new password</mat-error>
                     </mat-form-field>
                   <div class="col-12">

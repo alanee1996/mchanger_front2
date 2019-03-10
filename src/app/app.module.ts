@@ -17,16 +17,18 @@ import { RoleService } from './Services/role.service';
 import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './Services/dashboard.service';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ForgetPasswordComponent,
     PageNotFoundComponent,
     RoutingCollection,
     ProfileImgDialogComponent,
     DashboardComponent,
   ],
-  entryComponents: [ProfileImgDialogComponent],
+  entryComponents: [ProfileImgDialogComponent, ForgetPasswordComponent],
   imports: [
     BrowserModule,
     DesignModuleModule,

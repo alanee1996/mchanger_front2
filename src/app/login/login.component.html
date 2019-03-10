@@ -31,6 +31,9 @@
                             <div class="mt-4 col-12">
                               <mat-checkbox formControlName="check" [(ngModel)]="loginModel.remember">Remember Me</mat-checkbox>
                             </div>
+                            <div class="mt-4 col-12">
+                                <button type="button" class="btn btn-link p-0" (click)="dialogOpen()">Forget Password</button>
+                              </div>
                             <div class="col-12 mt-2">
                                 <button class="float-right" color="primary" mat-raised-button type="submit">Login</button>
                             </div>

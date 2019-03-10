@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { TokenExpiredException } from '../Exceptions/TokenExpiredException';
 import { Router } from '@angular/router';
 import { GenericModel } from '../Models/genericModel';
+import { ForgetPasswordModel } from '../Models/forgetPasswordModel';
 
 @Injectable({
   providedIn: 'root'
@@ -157,6 +158,11 @@ export class AuthService {
     const res = this.http.post<GenericModel<Object>>(this.domain + 'auth/reset/password', formData , {
       headers: header,
     });
+    return res;
+  }
+
+  public forgetPassword(model: ForgetPasswordModel): Observable<GenericModel<ForgetPasswordModel>> {
+    const res = this.http.post<GenericModel<ForgetPasswordModel>>(this.domain + 'auth/forget/password', model);
     return res;
   }
 }
