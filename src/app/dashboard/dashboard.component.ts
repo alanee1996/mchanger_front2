@@ -88,6 +88,7 @@ export class DashboardComponent implements OnInit {
     const obj = [];
     await this.dashService.getSales().toPromise().then(d => {
       if (d.status === 'success') {
+        console.log(d);
         if (d.data.length !== 0) {
           d.data.forEach((c, i) => {
             this.barChartLabels.push(c.month);
