@@ -9,6 +9,7 @@ import { UserService } from '../Services/user-service.service';
 import { UserDetail, UserType } from '../Models/user';
 import { RoleService } from '../Services/role.service';
 import { Role } from '../Models/role';
+import { AuthService } from '../Services/auth.service';
 
 
 
@@ -30,6 +31,7 @@ export class UserCRDComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    public auth: AuthService,
     private roleService: RoleService,
     private router: Router,
     private snackBar: MatSnackBar,
@@ -52,7 +54,7 @@ export class UserCRDComponent implements OnInit {
       }
     });
     this.init();
-    this.formInit();
+    this.formInit('update');
   }
 
   init() {
@@ -60,6 +62,9 @@ export class UserCRDComponent implements OnInit {
       const action = params.get('action');
       if (action === 'create' || action === 'update') {
         if (action === 'update') {
+          if (!this.auth.havePermissions(['MODIFY_USER'])) {
+            this.router.navigate(['/accessdenied']);
+          }
           this.title = 'User Modification';
           this.isCreate = false;
           let id: string = null;
@@ -73,9 +78,12 @@ export class UserCRDComponent implements OnInit {
             this.getData(id);
           }
         } else {
+          if (!this.auth.havePermissions(['CREATE_USER'])) {
+            this.router.navigate(['/accessdenied']);
+          }
           this.title = 'User Creation';
           this.isCreate = true;
-          this.formInit();
+          this.formInit(action);
           this.data = new UserDetail();
         }
       } else {
@@ -84,7 +92,7 @@ export class UserCRDComponent implements OnInit {
     });
   }
 
-  formInit() {
+  formInit(action: string) {
     this.userForm = new FormGroup({
       'username': new FormControl(
         this.data.username,
@@ -98,12 +106,6 @@ export class UserCRDComponent implements OnInit {
           Validators.required,
           Validators.email
         ]),
-      'active': new FormControl(
-        this.data.active,
-        [
-          Validators.required
-        ]
-      ),
       'fname': new FormControl(
         this.data.fname,
         [
@@ -117,6 +119,16 @@ export class UserCRDComponent implements OnInit {
         ]
       ),
     });
+    if (action === 'create' || this.auth.havePermissions(['DISABLE_USER'])) {
+      this.userForm.addControl(
+        'active', new FormControl(
+          this.data.active,
+          [
+            Validators.required
+          ]
+        ),
+      );
+    }
     this.type = this.activeRoute.snapshot.queryParams['type']
     if (!this.isCreate && this.type !== 'admin') {
       this.userForm.addControl('phone', new FormControl(this.data.phone, [Validators.required]));

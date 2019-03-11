@@ -5,6 +5,7 @@ import { MatSnackBar, MatPaginator, PageEvent } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserDetail } from '../Models/user';
 import { UserService } from '../Services/user-service.service';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -15,7 +16,7 @@ export class UserListComponent implements OnInit {
   public model: GenericModel<Array<UserDetail>> = new GenericModel<Array<UserDetail>>();
   public data: Array<UserDetail>;
 
-  constructor(private userService: UserService, private router: Router,
+  constructor(private userService: UserService, public auth: AuthService , private router: Router,
     private snackBar: MatSnackBar, private spinner: NgxSpinnerService) {
     }
 

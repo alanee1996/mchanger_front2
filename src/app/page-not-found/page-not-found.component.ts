@@ -7,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    window.onload = function() { document.querySelector('.cont_principal').className= 'cont_principal cont_error_active'; }
+
   }
 
 }

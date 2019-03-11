@@ -28,7 +28,7 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'withdrawal', component: WithdrawalComponent },
+      { path: 'withdrawal', component: WithdrawalComponent, canActivate: [PermissionGuard], data: { permissions: ['WITHDRAW_APPROVAL'] } },
       {
         path: 'roles', component: RoleComponent,
         children: [
@@ -45,14 +45,31 @@ const routes: Routes = [
       {
         path: 'users', component: UserComponent,
         children: [
-          { path: '', component: UserListComponent },
-          { path: 'list', component: UserListComponent },
-          { path: 'detail/:action', component: UserCRDComponent },
+          { path: '', component: UserListComponent, canActivate: [PermissionGuard], data: { permissions: ['VIEW_USER'] }},
+          { path: 'list', component: UserListComponent, canActivate: [PermissionGuard], data: { permissions: ['VIEW_USER'] } },
+          {
+            path: 'detail/:action', component: UserCRDComponent,
+            canActivate: [PermissionGuard],
+            data: {
+              permissions: ['CREATE_USER', 'MODIFY_USER'],
+              either: true
+            }
+          },
           { path: '**', component: PageNotFoundComponent}
         ]
       },
-      { path: 'transaction/list', component:  TransactionComponent},
-      { path: 'transaction/detail/:id', component:  TransactionDetailComponent}
+      {
+        path: 'transaction/list', component: TransactionComponent,
+        canActivate: [PermissionGuard],
+        data: { permissions: ['VIEW_TRANSACTION'] }
+      },
+      {
+        path: 'transaction/detail/:id', component: TransactionDetailComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permissions: ['VIEW_TRANSACTION']
+        }
+      }
     ]
   },
   { path: '**' , component: PageNotFoundComponent}

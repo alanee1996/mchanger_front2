@@ -36,7 +36,7 @@
                             {{ role.createdDate }}</td>
                         <td>
                             {{ role.modifiedDate }}</td>
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="this.auth.havePermissionsEither(['CREATE_ROLE','EDIT_ROLE'])">
                             <button  *ngIf="this.auth.havePermissions(['EDIT_ROLE'])" [queryParams]="{id: role.id}" [routerLink]="['/dashboard/roles/detail','update']" class="bg-primary" mat-button matTooltip="Edit">
                                 <i class="material-icons text-white">
                                     create

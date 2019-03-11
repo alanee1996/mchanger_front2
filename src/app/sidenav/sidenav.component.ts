@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../Models/user';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -20,7 +21,7 @@ export class SidenavComponent implements OnInit {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, public auth: AuthService) {}
 
   ngOnInit() {
   }

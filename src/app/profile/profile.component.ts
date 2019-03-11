@@ -98,27 +98,30 @@ export class ProfileComponent implements OnInit {
   }
 
   dialogOpen() {
-    const model = new ProfileDialogModel(null, this.userInfo.profile_img);
-    const dialogRef = this.dialog.open(ProfileImgDialogComponent, {
-      width: '750px',
-      data: model
-    });
+    if (this.auth.havePermissions(['UPLOAD_PROFILE_IMAGE'])) {
+      const model = new ProfileDialogModel(null, this.userInfo.profile_img);
+      const dialogRef = this.dialog.open(ProfileImgDialogComponent, {
+        width: '750px',
+        data: model
+      });
 
-    dialogRef.afterClosed().subscribe((result: ProfileDialogModel) => {
-      if (result !== undefined) {
-              // tslint:disable-next-line:max-line-length
-        if (result.response.status === 'success' && result.response.fileResponse.getFileUrl !== undefined && result.response.fileResponse.getFileUrl !== null) {
-          this.userInfo.profile_img = result.response.fileResponse.getFileUrl;
-          this.snackBar.open('Profile image uploaded successful', 'Dismiss', {
-            duration: 2000,
-          });
-        } else {
-          this.snackBar.open(result.response.message , 'Dismiss', {
-            duration: 2000,
-          });
+      dialogRef.afterClosed().subscribe((result: ProfileDialogModel) => {
+        if (result !== undefined) {
+                // tslint:disable-next-line:max-line-length
+          if (result.response.status === 'success' && result.response.fileResponse.getFileUrl !== undefined && result.response.fileResponse.getFileUrl !== null) {
+            this.userInfo.profile_img = result.response.fileResponse.getFileUrl;
+            this.snackBar.open('Profile image uploaded successful', 'Dismiss', {
+              duration: 2000,
+            });
+          } else {
+            this.snackBar.open(result.response.message , 'Dismiss', {
+              duration: 2000,
+            });
+          }
         }
-      }
-    });
+      });
+    }
+
   }
 
   logout() {

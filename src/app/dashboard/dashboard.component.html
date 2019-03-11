@@ -1,4 +1,4 @@
-<section class="mt-5">
+<section class="mt-5" *ngIf="this.auth.havePermissions(['VIEW_EXCHANGE_RATE'])">
     <div class="col-12">
         <div class="col-12 jumbotron bg-white shadow pt-2 pb-0">
             <h4 class="mt-2">Exchange Rates</h4>

@@ -18,7 +18,7 @@
                     <th scope="col">Status</th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Modified Date</th>
-                    <th scope="col"></th>
+                    <th scope="col" *ngIf="this.auth.havePermissions(['MODIFY_USER'])"></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                     <td>
                         {{ user.modifiedDate }}
                     </td>
-                    <td class="text-center">
+                    <td class="text-center" *ngIf="this.auth.havePermissions(['MODIFY_USER'])">
                         <button [queryParams]="{ id: user.userId, type: user.type }" [routerLink]="['/dashboard/users/detail/update']" class="bg-primary" mat-button matTooltip="Edit">
                             <i class="material-icons text-white">
                                 create

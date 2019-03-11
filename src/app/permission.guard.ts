@@ -17,7 +17,7 @@ export class PermissionGuard implements CanActivate {
       if (this.authService.havePermissionsEither(next.data.permissions)) {
         return true;
       } else {
-        this.authService.router.navigate(['/dashboard', { returnUrl: state.url }]);
+        this.authService.router.navigate(['/accessdenied', { returnUrl: state.url }]);
         return false;
       }
       return true;
@@ -25,7 +25,7 @@ export class PermissionGuard implements CanActivate {
       if (this.authService.havePermissions(next.data.permissions)) {
         return true;
       } else {
-        this.authService.router.navigate(['/dashboard', { returnUrl: state.url }]);
+        this.authService.router.navigate(['/accessdenied', { returnUrl: state.url }]);
         return false;
       }
     }

@@ -11,26 +11,38 @@
                     dashboard
                 </i>
             </a>
-            <mat-divider></mat-divider>
-            <a [routerLink]="['roles']" mat-list-item>Roles <i class="material-icons ml-auto text-success">
-              security
-              </i></a>
-            <mat-divider></mat-divider>
-            <a [routerLink]="['users']" mat-list-item>Users <i class="material-icons ml-auto text-primary">
-              people
-              </i></a>
-            <mat-divider></mat-divider>
-            <a [routerLink]="['withdrawal']" mat-list-item>Withdrawal
-                <i class="material-icons ml-auto text-danger ">
-                    payment
-                </i>
-            </a>
-            <mat-divider></mat-divider>
-            <a [routerLink]="['transaction/list']" mat-list-item>Transaction List
-                <i class="material-icons ml-auto text-secondary ">
-                  list_alt
-                </i>
-            </a>
+            <div *ngIf="this.auth.havePermissionsEither(['VIEW_ROLE','CREATE_ROLE','EDIT_ROLE','DELETE_ROLE'])">
+                <mat-divider></mat-divider>
+                <a [routerLink]="['roles']" mat-list-item>Roles
+                    <i class="material-icons ml-auto text-success">
+                        security
+                    </i>
+                </a>
+            </div>
+            <div *ngIf="this.auth.havePermissionsEither(['VIEW_USER','CREATE_USER','MODIFY_USER'])">
+                <mat-divider></mat-divider>
+                <a [routerLink]="['users']" mat-list-item>Users
+                    <i class="material-icons ml-auto text-primary">
+                        people
+                    </i>
+                </a>
+            </div>
+            <div *ngIf="this.auth.havePermissions(['WITHDRAW_APPROVAL'])">
+                <mat-divider></mat-divider>
+                <a [routerLink]="['withdrawal']" mat-list-item>Withdrawal
+                    <i class="material-icons ml-auto text-danger ">
+                        payment
+                    </i>
+                </a>
+            </div>
+            <div *ngIf="this.auth.havePermissions(['VIEW_TRANSACTION'])">
+                <mat-divider></mat-divider>
+                <a [routerLink]="['transaction/list']" mat-list-item>Transaction List
+                    <i class="material-icons ml-auto text-secondary ">
+                        list_alt
+                    </i>
+                </a>
+            </div>
             <mat-divider></mat-divider>
         </mat-nav-list>
     </mat-sidenav>
@@ -54,4 +66,3 @@
         <ng-content></ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>
-

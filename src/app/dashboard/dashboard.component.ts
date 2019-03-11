@@ -4,6 +4,7 @@ import { ExchangeRate } from '../Models/exchangeRate';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DashboardService } from '../Services/dashboard.service';
 import { MatSnackBar } from '@angular/material';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,8 +40,11 @@ export class DashboardComponent implements OnInit {
   public barChartReady = false;
   public barChartData: any[] = [];
 
-  constructor(private spinner: NgxSpinnerService, private dashService: DashboardService, private alert: MatSnackBar) {
-    this.initCurrencyRate();
+  constructor(public auth: AuthService,
+    private spinner: NgxSpinnerService, private dashService: DashboardService, private alert: MatSnackBar) {
+    if (this.auth.havePermissions(['VIEW_EXCHANGE_RATE'])) {
+      this.initCurrencyRate();
+    }
     this.bestSellCurrency();
     this.monthlySales();
   }

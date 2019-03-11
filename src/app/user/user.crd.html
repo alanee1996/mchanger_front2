@@ -22,7 +22,7 @@
                             <strong>required</strong>
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="col-lg-6">
+                    <mat-form-field class="col-lg-6" *ngIf="this.isCreate || this.auth.havePermissions(['DISABLE_USER'])" >
                         <mat-select [(ngModel)]="data.active" formControlName="active" placeholder="User Status">
                             <mat-option [value]="" disabled>Please select value</mat-option>
                             <mat-option [value]="true">Active</mat-option>

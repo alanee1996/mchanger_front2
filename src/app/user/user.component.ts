@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -8,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
 
   public navlink = [
-    { path: 'list', label: 'User List' },
-    { path: 'detail/create', label: 'User Creation' }
+    { path: 'list', label: 'User List', permission: 'VIEW_USER' },
+    { path: 'detail/create', label: 'User Creation', permission: 'CREATE_USER' }
   ];
 
-  constructor() { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
   }
