@@ -1,11 +1,8 @@
 <nav mat-tab-nav-bar>
-  <a mat-tab-link
-     *ngFor="let link of navlink"
-     [routerLink]="link.path"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-    {{link.label}}
-  </a>
+    <div *ngFor="let link of navlink">
+        <a *ngIf="this.auth.havePermissions([link.permission])" #rla="routerLinkActive" [active]="rla.isActive" [routerLink]="link.path" mat-tab-link routerLinkActive>
+            {{link.label}}
+        </a>
+    </div>
 </nav>
-
 <router-outlet></router-outlet>

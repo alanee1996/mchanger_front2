@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router, NavigationStart } from '@angular/router';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-role',
@@ -10,11 +11,11 @@ import { Router, NavigationStart } from '@angular/router';
 export class RoleComponent implements OnInit {
 
   public navlink = [
-    { path: 'list', label: 'Role List' },
-    { path: 'detail/create', label: 'Role Creation' }
+    { path: 'list', label: 'Role List' , permission: 'VIEW_ROLE'},
+    { path: 'detail/create', label: 'Role Creation', permission: 'CREATE_ROLE' }
   ];
 
-  constructor() {
+  constructor(public auth: AuthService) {
    }
 
   ngOnInit() {

@@ -7,7 +7,7 @@
                     <mat-icon class="ml-auto" id="logout" matTooltip="Click to logout" (click)="logout()">exit_to_app</mat-icon>
                 </mat-toolbar-row>
             </mat-toolbar>
-            <mat-card-header class="d-flex flex-column">
+            <mat-card-header class="d-flex flex-column" *ngIf="this.auth.havePermissions(['VIEW_PROFILE'])" >
                 <div class="d-flex justify-content-center">
                     <img src="{{ userInfo.profile_img }}" width="150" height="150" class="rounded-circle" (click)="dialogOpen()"/>
                 </div>
@@ -16,7 +16,7 @@
                         {{userInfo.username}}</h4>
                 </div>
             </mat-card-header>
-            <mat-card-content class="card-font-lg row p-4 pb-5">
+            <mat-card-content class="card-font-lg row p-4 pb-5" *ngIf="this.auth.havePermissions(['VIEW_PROFILE'])">
                 <form [formGroup]="profileForm" method="post" (submit)="updateProfile($event)" >
                     <mat-form-field class="col-lg-12">
                         <input type="text" matInput value="{{ userInfo.username }}" placeholder="Username" [disabled]="true"/>
@@ -40,7 +40,7 @@
                         <input [(ngModel)]="userInfo.lname" matInput formControlName="lname" placeholder="Last Name" type="text"/>
                         <mat-error *ngIf="profileForm.get('lname').invalid">Last name cannot be null</mat-error>
                     </mat-form-field>
-                    <div class="col-12">
+                    <div class="col-12" *ngIf="this.auth.havePermissions(['VIEW_PROFILE','UPDATE_PROFILE'])">
                         <button class="float-right" color="primary" mat-raised-button type="submit">
                             Update
                         </button>
@@ -50,7 +50,7 @@
         </mat-card>
     </div>
 </section>
-<section class="row mt-5 pl-5 pr-5 pt-3">
+<section class="row mt-5 pl-5 pr-5 pt-3" *ngIf="this.auth.havePermissions(['RESET_PASSWORD'])">
   <div class="col-12">
       <mat-card class="shadow">
           <mat-toolbar class="mb-3">

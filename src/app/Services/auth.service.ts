@@ -165,4 +165,51 @@ export class AuthService {
     const res = this.http.post<GenericModel<ForgetPasswordModel>>(this.domain + 'auth/forget/password', model);
     return res;
   }
+
+  private getPermissions() {
+    if (this.isLogin()) {
+      if (this.isSession()) {
+        return JSON.parse(sessionStorage.getItem('access') || 'false');
+      }
+      if (this.isStorage()) {
+        return JSON.parse(localStorage.getItem('access') || 'false');
+      }
+    }
+  }
+
+  public havePermissions(permissions: String []): boolean {
+    const pm = this.getPermissions();
+    if (pm) {
+      const list = pm as String[];
+      const fpm: String[] = [];
+      permissions.forEach(p => {
+        if (list.find(v => v === p)) {
+          fpm.push(p);
+        }
+      });
+      return fpm.length === permissions.length ? true : false;
+    } else {
+      this.logout();
+      return false;
+    }
+    return false;
+  }
+
+  public havePermissionsEither(permissions: String []): boolean {
+    const pm = this.getPermissions();
+    if (pm) {
+      const list = pm as String[];
+      const fpm: String[] = [];
+      permissions.forEach(p => {
+        if (list.find(v => v === p)) {
+          fpm.push(p);
+        }
+      });
+      return fpm.length > 0 ? true : false;
+    } else {
+      this.logout();
+      return false;
+    }
+    return false;
+  }
 }

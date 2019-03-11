@@ -5,6 +5,7 @@ import { GenericModel, Pagination } from '../Models/genericModel';
 import { Role } from '../Models/role';
 import { MatSnackBar, MatPaginator, PageEvent } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-role-list',
@@ -15,7 +16,7 @@ export class RoleListComponent implements OnInit {
   public model: GenericModel<Array<Role>> = new GenericModel<Array<Role>>();
   public data: Array<Role>;
 
-  constructor(private roleService: RoleService, private router: Router,
+  constructor(private roleService: RoleService,public auth: AuthService, private router: Router,
     private snackBar: MatSnackBar, private spinner: NgxSpinnerService) {
     }
 

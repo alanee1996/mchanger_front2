@@ -29,11 +29,11 @@ export class ProfileComponent implements OnInit {
   public oldpass: string;
   public newpass: string;
 
-  constructor(private auth: AuthService, private router: Router, public dialog: MatDialog,
+  constructor(public auth: AuthService, private router: Router, public dialog: MatDialog,
     private spinner: NgxSpinnerService, private userServive: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    if (this.auth.isLogin()) {
+    // if (this.auth.isLogin()) {
       this.auth.getUserProfile().subscribe((d) => {
         if (d['status'] === 'failed') {
           this.hasError = true;
@@ -44,9 +44,9 @@ export class ProfileComponent implements OnInit {
           this.userInfo = d['data'];
         }
       });
-    } else {
-        this.router.navigate(['/']);
-    }
+    // } else {
+    //     this.router.navigate(['/']);
+    // }
 
     this.profileForm = new FormGroup({
       'email': new FormControl(

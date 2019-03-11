@@ -16,6 +16,7 @@ import { TransactionComponent } from './transaction/transaction.component';
 import { TransactionDetailComponent } from './transaction/transaction.detail.component';
 import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PermissionGuard } from './permission.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -31,9 +32,13 @@ const routes: Routes = [
       {
         path: 'roles', component: RoleComponent,
         children: [
-          { path: '', component: RoleListComponent },
-          { path: 'list', component: RoleListComponent },
-          { path: 'detail/:action', component: RoleCRDComponent},
+          { path: '', component: RoleListComponent, canActivate: [PermissionGuard], data: { permissions: ['VIEW_ROLE'] } },
+          { path: 'list', component: RoleListComponent, canActivate: [PermissionGuard], data: { permissions: ['VIEW_ROLE'] } },
+          {
+            path: 'detail/:action', component: RoleCRDComponent,
+            canActivate: [PermissionGuard],
+            data: { permissions: ['CREATE_ROLE', 'EDIT_ROLE'], either: true }
+          },
           { path: '**', component: PageNotFoundComponent}
         ]
       },

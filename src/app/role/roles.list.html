@@ -15,7 +15,7 @@
                         <th scope="col">Status</th>
                         <th scope="col">Created Date</th>
                         <th scope="col">Modified Date</th>
-                        <th scope="col"></th>
+                        <th scope="col" *ngIf="this.auth.havePermissionsEither(['CREATE_ROLE','EDIT_ROLE'])"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,12 +37,12 @@
                         <td>
                             {{ role.modifiedDate }}</td>
                         <td class="text-center">
-                            <button [queryParams]="{id: role.id}" [routerLink]="['/dashboard/roles/detail','update']" class="bg-primary" mat-button matTooltip="Edit">
+                            <button  *ngIf="this.auth.havePermissions(['EDIT_ROLE'])" [queryParams]="{id: role.id}" [routerLink]="['/dashboard/roles/detail','update']" class="bg-primary" mat-button matTooltip="Edit">
                                 <i class="material-icons text-white">
                                     create
                                 </i>
                             </button>
-                            <button (click)="delete(role.id)" class="bg-danger ml-4" mat-button matTooltip="Delete">
+                            <button (click)="delete(role.id)" *ngIf="this.auth.havePermissions(['DELETE_ROLE'])" class="bg-danger ml-4" mat-button matTooltip="Delete">
                                 <i class="material-icons text-white">
                                     delete_forever
                                 </i>

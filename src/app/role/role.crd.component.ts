@@ -7,6 +7,7 @@ import {
 } from '@angular/material';
 import { RoleDetailModel } from '../Models/role-detail-model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../Services/auth.service';
 
 
 
@@ -24,6 +25,7 @@ export class RoleCRDComponent implements OnInit {
 
   constructor(
     private roleService: RoleService,
+    private auth: AuthService,
     private router: Router,
     private snackBar: MatSnackBar,
     private activeRoute: ActivatedRoute
@@ -39,6 +41,9 @@ export class RoleCRDComponent implements OnInit {
       const action = params.get('action');
       if (action === 'create' || action === 'update') {
         if (action === 'update') {
+          if (!this.auth.havePermissions(['EDIT_ROLE'])) {
+            this.router.navigate(['/accessdenied']);
+          }
           this.title = 'Role Modification';
           this.isCreate = false;
           let id: string = null;
@@ -60,6 +65,9 @@ export class RoleCRDComponent implements OnInit {
               });
           }
         } else {
+          if (!this.auth.havePermissions(['CREATE_ROLE'])) {
+            this.router.navigate(['/accessdenied']);
+          }
           this.formInit();
           this.title = 'Role Creation';
           this.isCreate = true;

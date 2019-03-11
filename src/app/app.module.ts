@@ -18,6 +18,7 @@ import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './Services/dashboard.service';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { PermissionGuard } from './permission.guard';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     ZXingScannerModule.forRoot(),
     BrowserAnimationsModule,
   ],
-  providers: [AuthService, , AuthGuard, UserService, TransactionService, RoleService, DashboardService],
+  providers: [AuthService, , AuthGuard, PermissionGuard , UserService, TransactionService, RoleService, DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
