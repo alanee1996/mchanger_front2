@@ -3,9 +3,11 @@ import { RoleService } from '../Services/role.service';
 import { Router } from '@angular/router';
 import { GenericModel, Pagination } from '../Models/genericModel';
 import { Role } from '../Models/role';
-import { MatSnackBar, MatPaginator, PageEvent } from '@angular/material';
+import { MatSnackBar, MatPaginator, PageEvent, MatDialog } from '@angular/material';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../Services/auth.service';
+import { ConfirmDialogModel } from '../Models/ConfirmDialogModel';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-role-list',
@@ -16,8 +18,8 @@ export class RoleListComponent implements OnInit {
   public model: GenericModel<Array<Role>> = new GenericModel<Array<Role>>();
   public data: Array<Role>;
 
-  constructor(private roleService: RoleService,public auth: AuthService, private router: Router,
-    private snackBar: MatSnackBar, private spinner: NgxSpinnerService) {
+  constructor(private roleService: RoleService, public auth: AuthService, private router: Router,
+    private snackBar: MatSnackBar, private spinner: NgxSpinnerService, public dialog: MatDialog) {
     }
 
   async ngOnInit() {
@@ -33,12 +35,26 @@ export class RoleListComponent implements OnInit {
   }
 
   delete(id) {
-    this.roleService.deleteRole(id).subscribe(d => {
-      this.model = d;
-      if (this.model.status !== 'failed') {
-        this.data = this.model.data;
-       }
-      this.snackBar.open(this.model.message, 'Dismiss', { duration: 3000 });
+    const confirm = new ConfirmDialogModel('Are you sure you want to delete this role ?');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '750px',
+      data: confirm
+    });
+
+    dialogRef.afterClosed().subscribe((result: ConfirmDialogModel) => {
+      if (result !== undefined) {
+              // tslint:disable-next-line:max-line-length
+        console.log(result);
+        if (result.result) {
+          this.roleService.deleteRole(id).subscribe(d => {
+            if (d.status !== 'failed') {
+              this.model = d;
+              this.data = this.model.data;
+          }
+          this.snackBar.open(d.message, 'Dismiss', { duration: 3000 });
+        });
+        }
+      }
     });
   }
 

@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './Services/dashboard.service';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { PermissionGuard } from './permission.guard';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +29,9 @@ import { PermissionGuard } from './permission.guard';
     RoutingCollection,
     ProfileImgDialogComponent,
     DashboardComponent,
+    ConfirmDialogComponent,
   ],
-  entryComponents: [ProfileImgDialogComponent, ForgetPasswordComponent],
+  entryComponents: [ProfileImgDialogComponent, ConfirmDialogComponent, ForgetPasswordComponent],
   imports: [
     BrowserModule,
     DesignModuleModule,
