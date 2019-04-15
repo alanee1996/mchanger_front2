@@ -11,6 +11,7 @@
         <form (submit)="decider($event)" [formGroup]="userForm" class="col-12" id="userForm">
             <mat-form-field class="col-lg-6">
                 <input matInput placeholder="Username" [(ngModel)]="data.username" formControlName="username" type="text"/>
+                <mat-error *ngIf="userForm.get('username').invalid">Username cannot be null</mat-error>
             </mat-form-field>
                 <mat-form-field class="col-lg-6">
                     <input [(ngModel)]="data.email" formControlName="email" matInput placeholder="Email Address" type="text">
@@ -28,20 +29,24 @@
                             <mat-option [value]="true">Active</mat-option>
                             <mat-option [value]="false">Deactive</mat-option>
                         </mat-select>
+                        <mat-error *ngIf="userForm.get('active').invalid">Please make sure the user status is selected</mat-error>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6" *ngIf="this.type === 'admin' || this.isCreate">
                       <mat-select [(ngModel)]="data.roleId" formControlName="role" placeholder="Role">
                           <mat-option [value]="role.id" *ngFor="let role of simpleRole.data">{{ role.rolename }}</mat-option>
                       </mat-select>
+                      <mat-error *ngIf="userForm.get('role').invalid">Please make sure the user role is selected</mat-error>
                   </mat-form-field>
                     <mat-form-field class="col-lg-6" *ngIf="!isCreate">
                       <input matInput disabled [value]="data.type" placeholder="User Type"/>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6">
                         <input [(ngModel)]="data.fname" formControlName="fname" matInput placeholder="First name" type="text"/>
+                        <mat-error *ngIf="userForm.get('fname').invalid">Firstname cannot be null</mat-error>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6">
                         <input [(ngModel)]="data.lname" formControlName="lname" matInput placeholder="Last name" type="text"/>
+                        <mat-error *ngIf="userForm.get('lname').invalid">Lastname cannot be null</mat-error>
                     </mat-form-field>
                     <div *ngIf="data.type ==='customer'">
                       <div class="col-12 mt-4 mb-4 text-center">
@@ -50,18 +55,23 @@
                       </div>
                         <mat-form-field class="col-lg-6">
                             <input [(ngModel)]="data.phone" formControlName="phone" matInput placeholder="Phone Number" type="text"/>
+                            <mat-error *ngIf="userForm.get('phone').invalid">Phone number cannot be null</mat-error>
                         </mat-form-field>
                         <mat-form-field class="col-lg-6">
                             <input [(ngModel)]="data.career" formControlName="career" matInput placeholder="Career" type="text"/>
+                            <mat-error *ngIf="userForm.get('career').invalid">Career cannot be null</mat-error>
                         </mat-form-field>
                         <mat-form-field class="col-lg-6">
                             <input [(ngModel)]="data.businessNature" formControlName="business" matInput placeholder="Business Nature" type="text"/>
+                            <mat-error *ngIf="userForm.get('business').invalid">Business nature cannot be null</mat-error>
                         </mat-form-field>
                         <mat-form-field class="col-lg-6">
                             <input [(ngModel)]="data.ic" formControlName="ic" matInput placeholder="IC" type="text"/>
+                            <mat-error *ngIf="userForm.get('ic').invalid && userForm.get('passport').invalid">Identity card number cannot be null</mat-error>
                         </mat-form-field>
                         <mat-form-field class="col-lg-6">
                             <input [(ngModel)]="data.passportNo" formControlName="passport" matInput placeholder="Passport Number" type="text"/>
+                            <mat-error *ngIf="userForm.get('ic').invalid && userForm.get('passport').invalid">Passport number cannot be null</mat-error>
                         </mat-form-field>
                         <mat-form-field class="col-lg-6">
                             <input disabled matInput placeholder="Address" [value]="data.address.location"/>

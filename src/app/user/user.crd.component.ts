@@ -157,13 +157,19 @@ export class UserCRDComponent implements OnInit {
 
   onSubmit(event) {
     if (!this.userForm.invalid) {
-      this.userService.updateUser(this.data.userId.toString(), this.data).toPromise().then(d => {
-        this.model = d;
-        if (d.status !== 'failed') {
-          this.data = this.model.data;
-        }
-        this.snackBar.open(this.model.message, 'Dismiss', {duration: 3000});
-      });
+      if (!this.data.ic && !this.data.passportNo && !this.isCreate && this.data.type === 'customer')
+      {
+        this.snackBar.open('Either IC or password cannot be empty', 'Dismiss', {duration: 3000});
+      } else {
+        this.userService.updateUser(this.data.userId.toString(), this.data).toPromise().then(d => {
+          this.model = d;
+          if (d.status !== 'failed') {
+            this.data = this.model.data;
+          }
+          this.snackBar.open(this.model.message, 'Dismiss', {duration: 3000});
+        });
+      }
+
     }
   }
 

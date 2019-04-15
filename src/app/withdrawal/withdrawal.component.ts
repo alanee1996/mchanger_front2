@@ -61,8 +61,10 @@ export class WithdrawalComponent implements OnInit {
     try {
       const val = JSON.parse(result.toString());
       await this.transactionService.getWithdrawProccess(val.key).toPromise().then(m => {
+        console.log(m);
         if (m.status === 'failed') {
-          this.alert.open(m.message);
+          this.wp = new WithdrawProcess();
+          this.alert.open(m.message, 'Dismiss', {duration: 3000});
         } else {
           this.wp = m.data;
         }
