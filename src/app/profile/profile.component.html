@@ -62,11 +62,13 @@
               <form [formGroup]="resetForm" method="post" (submit)="resetPassword($event)" >
                   <mat-form-field class="col-lg-6">
                       <input type="text" formControlName="oldpassword" matInput [(ngModel)]="this.oldpass" type="password" placeholder="Current Password"/>
-                      <mat-error *ngIf="resetForm.get('oldpassword').invalid">Please enter the current password</mat-error>
+                      <mat-error *ngIf="resetForm.get('oldpassword').invalid">Please make sure password is not null and have 8-10 characters and contain at least 1 special character and number</mat-error>
+                      <mat-hint align="end">Example password format: Test1@b</mat-hint>
                     </mat-form-field>
                     <mat-form-field class="col-lg-6">
                       <input type="text" formControlName="newpassword" matInput [(ngModel)]="this.newpass" type="password" placeholder="New Password"/>
-                      <mat-error *ngIf="resetForm.get('newpassword').invalid">Please enter the new password</mat-error>
+                      <mat-error *ngIf="resetForm.get('newpassword').invalid">Please make sure password is not null and have 8-10 characters and contain at least 1 special character and number</mat-error>
+                      <mat-hint align="end">Example password format: Test1@b</mat-hint>
                     </mat-form-field>
                   <div class="col-12">
                       <button class="float-right" color="accent" mat-raised-button type="submit">

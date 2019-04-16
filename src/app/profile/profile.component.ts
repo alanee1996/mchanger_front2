@@ -81,12 +81,18 @@ export class ProfileComponent implements OnInit {
         this.oldpass,
         [
           Validators.required,
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$'),
+          Validators.minLength(8),
+          Validators.maxLength(10),
         ]
       ),
       'newpassword': new FormControl(
         this.newpass,
         [
           Validators.required,
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$'),
+          Validators.minLength(8),
+          Validators.maxLength(10),
         ]
       )
     });

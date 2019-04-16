@@ -3,7 +3,7 @@ import { AuthService } from '../Services/auth.service';
 import { LoginModel } from '../Models/login-model';
 import { User } from '../Models/user';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, PatternValidator } from '@angular/forms';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 import { ForgetPasswordModel } from '../Models/forgetPasswordModel';
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
         'password': new FormControl(
           this.loginModel.password,
           [
+            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,10}$'),
             Validators.required,
             Validators.minLength(8),
             Validators.maxLength(10),
