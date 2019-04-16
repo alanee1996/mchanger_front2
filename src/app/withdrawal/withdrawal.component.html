@@ -76,7 +76,7 @@
                                                                             </mat-form-field>
                                                                         </div>
                                                                         <div class="col-12">
-                                                                            <button class="btn-block" color="primary" mat-raised-button type="submit">
+                                                                            <button class="btn-block" [disabled]="!wp.user.email" color="primary" mat-raised-button type="submit">
                                                                                 Approve
                                                                             </button>
                                                                         </div>
