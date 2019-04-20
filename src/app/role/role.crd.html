@@ -9,8 +9,9 @@
     <div class="col-12 mt-5">
         <form [formGroup]="roleForm" class="col-12" method="post" id="roleForm">
             <mat-form-field class="col-lg-6">
-                <input [(ngModel)]="data.rolename" formControlName="rolename" matInput placeholder="Role Name" type="text">
-                    <mat-error *ngIf="roleForm.get('rolename').invalid">Role name  cannot be null</mat-error>
+                <input [(ngModel)]="data.rolename" formControlName="rolename" [readOnly]="data.rolename==='customer' && !this.isCreate" matInput placeholder="Role Name" type="text">
+                    <mat-error *ngIf="roleForm.get('rolename').invalid">Role name cannot be null</mat-error>
+                    <mat-hint *ngIf="data.rolename==='customer' && !this.isCreate" align="end">Customer role name is a key and used by internal of the system, so it can't change</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="col-lg-6">
                     <mat-select [(ngModel)]="data.roleStatus" formControlName="isactive" placeholder="Role Status">
